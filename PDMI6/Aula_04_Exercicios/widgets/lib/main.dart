@@ -55,7 +55,6 @@ class ExerciseMenuPage extends StatelessWidget {
               );
             },
           ),
-          // Você pode adicionar outros ListTiles aqui para os próximos exercícios
         ],
       ),
     );
