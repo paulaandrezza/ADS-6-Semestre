@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="section">
+      <h2 class="center-align blue-text text-darken-2 flow-text">
+        CRUD com Fetch e JSONPlaceholder
+      </h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="buttons">
+      <button
+        class="waves-effect waves-light btn blue lighten-1 full-width"
+        onclick="getAllPosts()"
+      >
+        GET - Todos os Posts
+      </button>
+
+      <div class="input-field">
+        <input
+          id="post-id"
+          type="number"
+          class="validate"
+          placeholder="ID do Post"
+        />
+      </div>
+
+      <button
+        class="waves-effect waves-light btn blue full-width"
+        onclick="getPostById()"
+      >
+        GET - Post por ID
+      </button>
+
+      <button
+        class="waves-effect waves-light btn green full-width"
+        onclick="createPost()"
+      >
+        POST - Criar Post
+      </button>
+
+      <button
+        class="waves-effect waves-light btn orange full-width"
+        onclick="updatePost()"
+      >
+        PUT - Atualizar Post
+      </button>
+
+      <button
+        class="waves-effect waves-light btn red full-width"
+        onclick="deletePost()"
+      >
+        DELETE - Deletar Post
+      </button>
+    </div>
+    <div id="form-container"></div>
+    <section id="result" class="result"></section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
