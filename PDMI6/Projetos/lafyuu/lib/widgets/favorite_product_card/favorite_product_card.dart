@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import 'package:lafyuu/models/favorite_product.dart';
+import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/theme/app_colors.dart';
+import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
+
+class FavoriteProductCard extends StatelessWidget {
+  final FavoriteProduct favoriteProduct;
+
+  const FavoriteProductCard({super.key, required this.favoriteProduct});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ProductDetailScreen(id: favoriteProduct.id),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        width: 160,
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.only(bottom: 12),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.border),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(
+              favoriteProduct.imageUrl,
+              height: 160,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 8),
+            Text(favoriteProduct.title, style: AppTextStyles.body, maxLines: 2),
+            const SizedBox(height: 4),
+            Row(
+              children: List.generate(5, (index) {
+                return Icon(
+                  Icons.star,
+                  color:
+                      index < favoriteProduct.rating
+                          ? Colors.amber
+                          : AppColors.border,
+                  size: 14,
+                );
+              }),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '\$${favoriteProduct.price.toStringAsFixed(2)}',
+              style: AppTextStyles.link,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      '\$${favoriteProduct.oldPrice.toStringAsFixed(2)}',
+                      style: AppTextStyles.subtitle2,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${favoriteProduct.discountPercent}% Off',
+                      style: AppTextStyles.subtitle2.copyWith(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+                if (favoriteProduct.showDeleteIcon)
+                  GestureDetector(
+                    onTap: favoriteProduct.onDelete,
+                    behavior: HitTestBehavior.translucent,
+                    child: Icon(
+                      Icons.delete_outline_outlined,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
