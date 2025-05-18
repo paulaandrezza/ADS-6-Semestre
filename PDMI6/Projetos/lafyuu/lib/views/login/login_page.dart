@@ -1,14 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lafyuu/routes/app_routes.dart';
+import 'package:lafyuu/services/auth_service.dart';
+import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/widgets/primary_button.dart';
+import 'package:lafyuu/widgets/social_login_button.dart';
 
-import '../../routes/app_routes.dart';
-import '../../theme/app_colors.dart';
-import '../../widgets/primary_button.dart';
-import '../../widgets/social_login_button.dart';
-
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  final _authService = AuthService();
+
+  void _handleLogin() async {
+    setState(() => _isLoading = true);
+
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    final success = await _authService.login(email, password);
+
+    setState(() => _isLoading = false);
+
+    if (success) {
+      Navigator.pushReplacementNamed(context, AppRoutes.main);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email or password is incorrect.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +53,17 @@ class LoginPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Logo
               SvgPicture.asset('assets/images/logo.svg', height: 80),
               const SizedBox(height: 24),
 
-              // Title
               Text('Welcome to Lafyuu', style: AppTextStyles.title2),
               const SizedBox(height: 8),
 
-              // Subtitle
               Text('Sign in to continue', style: AppTextStyles.subtitle),
               const SizedBox(height: 32),
 
-              // Email field
               TextField(
-                // TODO: texto durante a digitação diferente
+                controller: _emailController,
                 style: TextStyle(color: AppColors.textSecondary),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
@@ -47,8 +75,8 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Password field
               TextField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
@@ -60,16 +88,13 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Sign In button
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: PrimaryButton(
                   label: 'Sign In',
-                  onPressed: () {
-                    // TODO: criar login
-                    Navigator.pushReplacementNamed(context, AppRoutes.main);
-                  },
+                  onPressed: _handleLogin,
+                  isLoading: _isLoading,
                 ),
               ),
               const SizedBox(height: 24),
@@ -102,7 +127,6 @@ class LoginPage extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              // Google login
               SocialLoginButton(
                 assetPath: 'assets/images/google_icon.png',
                 label: 'Login with Google',
@@ -110,7 +134,6 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Facebook login
               SocialLoginButton(
                 assetPath: 'assets/images/facebook_icon.png',
                 label: 'Login with facebook',
@@ -118,13 +141,11 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Forgot password
               TextButton(
                 onPressed: () {},
                 child: Text('Forgot Password?', style: AppTextStyles.link),
               ),
 
-              // Register
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
