@@ -6,17 +6,24 @@ import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.d
 
 class FavoriteProductCard extends StatelessWidget {
   final FavoriteProduct favoriteProduct;
+  final VoidCallback? onDelete;
 
-  const FavoriteProductCard({super.key, required this.favoriteProduct});
+  const FavoriteProductCard({
+    super.key,
+    required this.favoriteProduct,
+    this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
+    print('isFavorite: ${favoriteProduct.isFavorite}');
+
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ProductDetailScreen(id: favoriteProduct.id),
+            builder: (_) => ProductDetailScreen(product: favoriteProduct),
           ),
         );
       },
@@ -77,18 +84,18 @@ class FavoriteProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (favoriteProduct.showDeleteIcon)
-                  InkWell(
-                    onTap: favoriteProduct.onDelete,
-                    borderRadius: BorderRadius.circular(16),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(
-                        Icons.delete_outline_outlined,
-                        color: AppColors.textSecondary,
-                      ),
+
+                InkWell(
+                  onTap: onDelete,
+                  borderRadius: BorderRadius.circular(16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.delete_outline_outlined,
+                      color: AppColors.textSecondary,
                     ),
                   ),
+                ),
               ],
             ),
           ],

@@ -4,8 +4,13 @@ import 'favorite_product_card.dart';
 
 class FavoriteProductCardList extends StatelessWidget {
   final List<FavoriteProduct> favoriteProducts;
+  final void Function(int) onDelete;
 
-  const FavoriteProductCardList({super.key, required this.favoriteProducts});
+  const FavoriteProductCardList({
+    super.key,
+    required this.favoriteProducts,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,10 @@ class FavoriteProductCardList extends StatelessWidget {
       itemCount: favoriteProducts.length,
       itemBuilder: (context, index) {
         final favoriteProduct = favoriteProducts[index];
-        return FavoriteProductCard(favoriteProduct: favoriteProduct);
+        return FavoriteProductCard(
+          favoriteProduct: favoriteProduct,
+          onDelete: () => onDelete(favoriteProduct.id),
+        );
       },
     );
   }

@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/cart_products_mock.dart';
 import 'package:lafyuu/models/cart_product.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
-import 'package:lafyuu/widgets/cart_product_card/cart_product_card_list.dart'; // Crie esse arquivo como vimos antes
+import 'package:lafyuu/widgets/cart_product_card/cart_product_card_list.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   CartScreen({super.key});
 
-  final List<CartProduct> cartProducts = cartProductsMock;
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  List<CartProduct> cartProducts = List.from(cartProductsMock);
+
+  void _removeProduct(int id) {
+    setState(() {
+      cartProducts.removeWhere((product) => product.id == id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +35,10 @@ class CartScreen extends StatelessWidget {
                     flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: CartProductCardList(cartProducts: cartProducts),
+                      child: CartProductCardList(
+                        cartProducts: cartProducts,
+                        onDelete: _removeProduct,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -41,7 +55,10 @@ class CartScreen extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: CartProductCardList(cartProducts: cartProducts),
+                      child: CartProductCardList(
+                        cartProducts: cartProducts,
+                        onDelete: _removeProduct,
+                      ),
                     ),
                   ),
                   OrderSummary(totalPrice: 1235.50, itemCount: 10),

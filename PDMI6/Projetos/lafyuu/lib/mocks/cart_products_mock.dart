@@ -12,10 +12,6 @@ final List<CartProduct> cartProductsMock = [
     rating: 4,
     quantity: 1,
     isFavorite: true,
-    onDelete: () => print('Produto 1 removido do carrinho'),
-    onIncrement: () => print('Quantidade produto 1 aumentada'),
-    onDecrement: () => print('Quantidade produto 1 reduzida'),
-    onToggleFavorite: () => print('Favorito produto 1 alternado'),
   ),
   CartProduct(
     id: 2,
@@ -27,10 +23,6 @@ final List<CartProduct> cartProductsMock = [
     rating: 5,
     quantity: 2,
     isFavorite: false,
-    onDelete: () => print('Produto 2 removido do carrinho'),
-    onIncrement: () => print('Quantidade produto 2 aumentada'),
-    onDecrement: () => print('Quantidade produto 2 reduzida'),
-    onToggleFavorite: () => print('Favorito produto 2 alternado'),
   ),
   CartProduct(
     id: 3,
@@ -43,10 +35,6 @@ final List<CartProduct> cartProductsMock = [
     rating: 3,
     quantity: 1,
     isFavorite: true,
-    onDelete: () => print('Produto 3 removido do carrinho'),
-    onIncrement: () => print('Quantidade produto 3 aumentada'),
-    onDecrement: () => print('Quantidade produto 3 reduzida'),
-    onToggleFavorite: () => print('Favorito produto 3 alternado'),
   ),
   CartProduct(
     id: 4,
@@ -59,9 +47,5 @@ final List<CartProduct> cartProductsMock = [
     rating: 4,
     quantity: 1,
     isFavorite: false,
-    onDelete: () => print('Produto 4 removido do carrinho'),
-    onIncrement: () => print('Quantidade produto 4 aumentada'),
-    onDecrement: () => print('Quantidade produto 4 reduzida'),
-    onToggleFavorite: () => print('Favorito produto 4 alternado'),
   ),
 ];

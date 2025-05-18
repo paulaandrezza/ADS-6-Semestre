@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/models/cart_product.dart';
+import 'package:lafyuu/widgets/favorite_button.dart';
+import 'package:lafyuu/widgets/quantity_selector.dart';
 
 class CartProductCard extends StatelessWidget {
   final CartProduct cartProduct;
+  final VoidCallback? onDelete;
 
-  const CartProductCard({super.key, required this.cartProduct});
+  const CartProductCard({super.key, required this.cartProduct, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -48,19 +51,10 @@ class CartProductCard extends StatelessWidget {
                       ),
                     ),
 
-                    IconButton(
-                      icon: Icon(
-                        cartProduct.isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color:
-                            cartProduct.isFavorite ? Colors.red : Colors.grey,
-                      ),
-                      onPressed: cartProduct.onToggleFavorite,
-                    ),
+                    FavoriteButton(isFavorite: cartProduct.isFavorite),
                     IconButton(
                       icon: const Icon(Icons.delete_outline),
-                      onPressed: cartProduct.onDelete,
+                      onPressed: onDelete,
                     ),
                   ],
                 ),
@@ -76,54 +70,7 @@ class CartProductCard extends StatelessWidget {
                         style: AppTextStyles.link,
                       ),
 
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: cartProduct.onDecrement,
-                            child: Container(
-                              height: 32, // mesmo valor do container central
-                              width: 32,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.lightgrey),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4),
-                                  bottomLeft: Radius.circular(4),
-                                ),
-                              ),
-                              alignment: Alignment.center,
-                              child: const Icon(Icons.remove, size: 16),
-                            ),
-                          ),
-                          Container(
-                            height: 32,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: AppColors.lightgrey,
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              '${cartProduct.quantity}',
-                              style: AppTextStyles.body,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: cartProduct.onIncrement,
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.lightgrey),
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(4),
-                                  bottomRight: Radius.circular(4),
-                                ),
-                              ),
-                              alignment: Alignment.center,
-                              child: const Icon(Icons.add, size: 16),
-                            ),
-                          ),
-                        ],
-                      ),
+                      QuantitySelector(initialQuantity: cartProduct.quantity),
                     ],
                   ),
                 ),

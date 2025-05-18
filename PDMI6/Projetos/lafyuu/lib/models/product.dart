@@ -6,6 +6,7 @@ class Product {
   final double oldPrice;
   final int discountPercent;
   final int rating;
+  final bool isFavorite;
 
   Product({
     required this.id,
@@ -15,5 +16,6 @@ class Product {
     required this.oldPrice,
     required this.discountPercent,
     required this.rating,
+    this.isFavorite = false,
   });
 }

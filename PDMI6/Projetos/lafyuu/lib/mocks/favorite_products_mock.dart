@@ -10,10 +10,6 @@ final List<FavoriteProduct> favoriteProductsMock = [
     oldPrice: 150.0,
     discountPercent: 20,
     rating: 4,
-    showDeleteIcon: true,
-    onDelete: () {
-      print('Produto removido dos favoritos');
-    },
   ),
   FavoriteProduct(
     id: 2,
@@ -23,9 +19,5 @@ final List<FavoriteProduct> favoriteProductsMock = [
     oldPrice: 200.0,
     discountPercent: 30,
     rating: 5,
-    showDeleteIcon: true,
-    onDelete: () {
-      print('Produto removido dos favoritos');
-    },
   ),
 ];
