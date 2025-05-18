@@ -32,10 +32,12 @@ class FavoriteProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              favoriteProduct.imageUrl,
-              height: 160,
-              fit: BoxFit.contain,
+            Center(
+              child: Image.network(
+                favoriteProduct.imageUrl,
+                height: 160,
+                fit: BoxFit.contain,
+              ),
             ),
             const SizedBox(height: 8),
             Text(favoriteProduct.title, style: AppTextStyles.body, maxLines: 2),
@@ -76,12 +78,15 @@ class FavoriteProductCard extends StatelessWidget {
                   ],
                 ),
                 if (favoriteProduct.showDeleteIcon)
-                  GestureDetector(
+                  InkWell(
                     onTap: favoriteProduct.onDelete,
-                    behavior: HitTestBehavior.translucent,
-                    child: Icon(
-                      Icons.delete_outline_outlined,
-                      color: AppColors.textSecondary,
+                    borderRadius: BorderRadius.circular(16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.delete_outline_outlined,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
               ],

@@ -11,26 +11,49 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
       appBar: AppBar(title: Text('Your Cart', style: AppTextStyles.title2)),
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: CartProductCardList(cartProducts: cartProducts),
-            ),
-          ),
-          OrderSummary(totalPrice: 1235.50, itemCount: 10),
-        ],
-      ),
+      body:
+          isLandscape
+              ? Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: CartProductCardList(cartProducts: cartProducts),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: OrderSummary(totalPrice: 1235.50, itemCount: 10),
+                    ),
+                  ),
+                ],
+              )
+              : Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: CartProductCardList(cartProducts: cartProducts),
+                    ),
+                  ),
+                  OrderSummary(totalPrice: 1235.50, itemCount: 10),
+                ],
+              ),
     );
   }
 }
 
 class OrderSummary extends StatelessWidget {
   final double totalPrice;
-  final int itemCount; // Exemplo de contagem de itens
+  final int itemCount;
 
   const OrderSummary({
     super.key,

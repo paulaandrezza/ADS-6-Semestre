@@ -9,12 +9,15 @@ class FavoriteProductCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: isLandscape ? 4 : 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: 0.55,
+        childAspectRatio: isLandscape ? 0.65 : 0.55,
       ),
       itemCount: favoriteProducts.length,
       itemBuilder: (context, index) {
