@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/cart_products_mock.dart';
 import 'package:lafyuu/models/cart_product.dart';
+import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/cart_product_card/cart_product_card_list.dart';
+import 'package:lafyuu/widgets/primary_button.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key});
@@ -17,6 +19,17 @@ class _CartScreenState extends State<CartScreen> {
   void _removeProduct(int id) {
     setState(() {
       cartProducts.removeWhere((product) => product.id == id);
+    });
+  }
+
+  void _updateQuantity(int id, int newQuantity) {
+    setState(() {
+      final index = cartProducts.indexWhere((product) => product.id == id);
+      if (index != -1) {
+        cartProducts[index] = cartProducts[index].copyWith(
+          quantity: newQuantity,
+        );
+      }
     });
   }
 
@@ -38,6 +51,7 @@ class _CartScreenState extends State<CartScreen> {
                       child: CartProductCardList(
                         cartProducts: cartProducts,
                         onDelete: _removeProduct,
+                        onQuantityChange: _updateQuantity,
                       ),
                     ),
                   ),
@@ -45,7 +59,16 @@ class _CartScreenState extends State<CartScreen> {
                     flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: OrderSummary(totalPrice: 1235.50, itemCount: 10),
+                      child: OrderSummary(
+                        totalPrice: cartProducts.fold(
+                          0.0,
+                          (sum, p) => sum + p.price * p.quantity,
+                        ),
+                        itemCount: cartProducts.fold(
+                          0,
+                          (sum, p) => sum + p.quantity,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -58,12 +81,32 @@ class _CartScreenState extends State<CartScreen> {
                       child: CartProductCardList(
                         cartProducts: cartProducts,
                         onDelete: _removeProduct,
+                        onQuantityChange: _updateQuantity,
                       ),
                     ),
                   ),
-                  OrderSummary(totalPrice: 1235.50, itemCount: 10),
+                  OrderSummary(
+                    totalPrice: cartProducts.fold(
+                      0.0,
+                      (sum, p) => sum + p.price * p.quantity,
+                    ),
+                    itemCount: cartProducts.fold(
+                      0,
+                      (sum, p) => sum + p.quantity,
+                    ),
+                  ),
                 ],
               ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PrimaryButton(label: 'Check Out', onPressed: () {}),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -80,44 +123,107 @@ class OrderSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Row(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Items ($itemCount)', style: AppTextStyles.body),
-                  Text('\$598.88', style: AppTextStyles.body),
-                ],
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter Coupon Code',
+                    hintStyle: TextStyle(color: Colors.grey.shade500),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(8),
+                      ),
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                  ),
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Shipping', style: AppTextStyles.body),
-                  Text('\$40.00', style: AppTextStyles.body),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Import Charges', style: AppTextStyles.body),
-                  Text('\$128.00', style: AppTextStyles.body),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Total Price', style: AppTextStyles.body2),
-                  Text('\$766.86', style: AppTextStyles.body3),
-                ],
+
+              SizedBox(
+                width: 128,
+                height: 48,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.horizontal(
+                        right: Radius.circular(8),
+                      ),
+                    ),
+                    backgroundColor: AppColors.primary,
+                  ),
+                  onPressed: () {},
+                  child: Text('Apply', style: AppTextStyles.button),
+                ),
               ),
             ],
           ),
-        ),
-      ],
+
+          const SizedBox(height: 16),
+
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.border),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Items ($itemCount)', style: AppTextStyles.body),
+                    Text(
+                      '\$${totalPrice.toStringAsFixed(2)}',
+                      style: AppTextStyles.body,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Shipping', style: AppTextStyles.body),
+                    Text('\$40.00', style: AppTextStyles.body),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Import Charges', style: AppTextStyles.body),
+                    Text(
+                      '\$${(totalPrice * 0.2).toStringAsFixed(2)}',
+                      style: AppTextStyles.body,
+                    ),
+                  ],
+                ),
+                const Divider(
+                  thickness: 1,
+                  height: 32,
+                  color: AppColors.border,
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total Price', style: AppTextStyles.body2),
+                    Text(
+                      '\$${(totalPrice * 1.2 + 40).toStringAsFixed(2)}',
+                      style: AppTextStyles.body3,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

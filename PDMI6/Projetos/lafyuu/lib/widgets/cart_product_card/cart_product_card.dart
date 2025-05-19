@@ -8,8 +8,14 @@ import 'package:lafyuu/widgets/quantity_selector.dart';
 class CartProductCard extends StatelessWidget {
   final CartProduct cartProduct;
   final VoidCallback? onDelete;
+  final void Function(int) onQuantityChange;
 
-  const CartProductCard({super.key, required this.cartProduct, this.onDelete});
+  const CartProductCard({
+    super.key,
+    required this.cartProduct,
+    this.onDelete,
+    required this.onQuantityChange,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +76,10 @@ class CartProductCard extends StatelessWidget {
                         style: AppTextStyles.bodyLightBlue,
                       ),
 
-                      QuantitySelector(initialQuantity: cartProduct.quantity),
+                      QuantitySelector(
+                        quantity: cartProduct.quantity,
+                        onQuantityChanged: onQuantityChange,
+                      ),
                     ],
                   ),
                 ),

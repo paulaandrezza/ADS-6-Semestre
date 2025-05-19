@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'product.dart';
 
 class CartProduct extends Product {
@@ -16,4 +14,25 @@ class CartProduct extends Product {
     super.isFavorite = false,
     this.quantity = 1,
   });
+
+  CartProduct copyWith({
+    int? id,
+    String? title,
+    String? imageUrl,
+    double? price,
+    int? quantity,
+    bool? isFavorite,
+  }) {
+    return CartProduct(
+      id: this.id,
+      title: this.title,
+      imageUrl: this.imageUrl,
+      price: this.price,
+      oldPrice: oldPrice,
+      discountPercent: discountPercent,
+      rating: rating,
+      isFavorite: isFavorite ?? this.isFavorite,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }
