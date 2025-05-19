@@ -45,7 +45,7 @@ class _CartScreenState extends State<CartScreen> {
               ? Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: CartProductCardList(
@@ -56,7 +56,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: OrderSummary(
@@ -68,6 +68,7 @@ class _CartScreenState extends State<CartScreen> {
                           0,
                           (sum, p) => sum + p.quantity,
                         ),
+                        isLandscape: isLandscape,
                       ),
                     ),
                   ),
@@ -94,6 +95,7 @@ class _CartScreenState extends State<CartScreen> {
                       0,
                       (sum, p) => sum + p.quantity,
                     ),
+                    isLandscape: isLandscape,
                   ),
                 ],
               ),
@@ -114,17 +116,19 @@ class _CartScreenState extends State<CartScreen> {
 class OrderSummary extends StatelessWidget {
   final double totalPrice;
   final int itemCount;
+  final bool isLandscape;
 
   const OrderSummary({
     super.key,
     required this.totalPrice,
     required this.itemCount,
+    required this.isLandscape,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    final content = Padding(
+      padding: EdgeInsets.all(isLandscape ? 8.0 : 16.0),
       child: Column(
         children: [
           Row(
@@ -225,5 +229,11 @@ class OrderSummary extends StatelessWidget {
         ],
       ),
     );
+
+    if (isLandscape) {
+      return SingleChildScrollView(child: content);
+    } else {
+      return content;
+    }
   }
 }
