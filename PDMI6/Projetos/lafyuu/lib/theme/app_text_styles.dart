@@ -31,12 +31,11 @@ class AppTextStyles {
     AppColors.textSecondary,
   );
   static TextStyle subtitle2 = _baseStyle(
-    14,
+    16,
     FontWeight.w700,
-    AppColors.textSecondary,
+    AppColors.textPrimary,
   );
   static TextStyle button = _baseStyle(16, FontWeight.w700, Colors.white);
-  static TextStyle link = _baseStyle(16, FontWeight.w700, AppColors.primary);
   static TextStyle body = _baseStyle(
     14,
     FontWeight.w600,
@@ -48,4 +47,14 @@ class AppTextStyles {
     AppColors.textPrimary,
   );
   static TextStyle body3 = _baseStyle(14, FontWeight.normal, AppColors.primary);
+  static TextStyle bodyLightBlue = _baseStyle(
+    16,
+    FontWeight.w700,
+    AppColors.primary,
+  );
+  static TextStyle bodyLightBlue2 = _baseStyle(
+    20,
+    FontWeight.w700,
+    AppColors.primary,
+  );
 }

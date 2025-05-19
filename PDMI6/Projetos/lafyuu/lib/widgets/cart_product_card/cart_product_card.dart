@@ -67,7 +67,7 @@ class CartProductCard extends StatelessWidget {
                     children: [
                       Text(
                         '\$${cartProduct.price.toStringAsFixed(2)}',
-                        style: AppTextStyles.link,
+                        style: AppTextStyles.bodyLightBlue,
                       ),
 
                       QuantitySelector(initialQuantity: cartProduct.quantity),

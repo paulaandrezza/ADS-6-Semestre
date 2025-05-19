@@ -143,7 +143,10 @@ class _LoginPageState extends State<LoginPage> {
 
               TextButton(
                 onPressed: () {},
-                child: Text('Forgot Password?', style: AppTextStyles.link),
+                child: Text(
+                  'Forgot Password?',
+                  style: AppTextStyles.bodyLightBlue,
+                ),
               ),
 
               Row(
@@ -152,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Text("Don't have an account? "),
                   GestureDetector(
                     onTap: () {},
-                    child: Text('Register', style: AppTextStyles.link),
+                    child: Text('Register', style: AppTextStyles.bodyLightBlue),
                   ),
                 ],
               ),

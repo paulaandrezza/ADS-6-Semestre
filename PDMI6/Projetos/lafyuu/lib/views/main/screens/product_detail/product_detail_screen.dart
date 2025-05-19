@@ -3,6 +3,7 @@ import 'package:lafyuu/models/product.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/favorite_button.dart';
+import 'package:lafyuu/widgets/primary_button.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -36,6 +37,16 @@ class ProductDetailScreen extends StatelessWidget {
         ],
       ),
       body: ProductDetailScreenBody(product: product),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PrimaryButton(label: 'Add to Cart', onPressed: () {}),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -57,7 +68,16 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    print('isFavorite: ${product.isFavorite}');
+    final sizes = ['6', '6.5', '7', '7.5', '8', '8.5'];
+    final colors = [
+      Colors.amber,
+      Colors.lightBlue,
+      Colors.redAccent,
+      Colors.greenAccent,
+      Colors.blue,
+      Colors.indigo,
+    ];
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +96,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,6 +104,92 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                     Text(product.title, style: AppTextStyles.title1),
                     FavoriteButton(isFavorite: product.isFavorite),
                   ],
+                ),
+                Row(
+                  children: List.generate(5, (index) {
+                    return Icon(
+                      Icons.star,
+                      color:
+                          index < product.rating
+                              ? Colors.amber
+                              : AppColors.border,
+                      size: 20,
+                    );
+                  }),
+                ),
+
+                const SizedBox(height: 8),
+
+                Text(
+                  '\$${product.price.toStringAsFixed(2)}',
+                  style: AppTextStyles.bodyLightBlue2,
+                ),
+
+                const SizedBox(height: 24),
+
+                Text('Select Size', style: AppTextStyles.body2),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:
+                      sizes.map((size) {
+                        final bool isSelected = size == '7';
+                        return Container(
+                          width: 40,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color:
+                                  isSelected
+                                      ? AppColors.primary
+                                      : AppColors.textSecondary,
+                            ),
+                          ),
+                          child: Text(
+                            size,
+                            style: TextStyle(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                ),
+
+                const SizedBox(height: 24),
+
+                Text('Select Color', style: AppTextStyles.body2),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:
+                      colors.map((color) {
+                        final bool isSelected = color == Colors.amber;
+
+                        return Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: color,
+                          ),
+                          child:
+                              isSelected
+                                  ? Center(
+                                    child: Container(
+                                      width: 16,
+                                      height: 16,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                  : null,
+                        );
+                      }).toList(),
                 ),
               ],
             ),
