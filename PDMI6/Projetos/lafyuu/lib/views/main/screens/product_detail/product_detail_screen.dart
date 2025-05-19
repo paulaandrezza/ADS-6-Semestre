@@ -295,6 +295,26 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                   'air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit, not sure if the box was always this small but the 90s are and will always be one of my favorites.',
                   style: AppTextStyles.body,
                 ),
+                Row(
+                  spacing: 16,
+                  children: [
+                    Image.network(
+                      "https://imgnike-a.akamaihd.net/768x768/01122416A1.jpg",
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
+                    Image.network(
+                      "https://imgnike-a.akamaihd.net/768x768/01122416A2.jpg",
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
+                    Image.network(
+                      "https://imgnike-a.akamaihd.net/768x768/01122416A4.jpg",
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 8),
                 Text('December 10, 2016', style: AppTextStyles.body),
 
