@@ -153,7 +153,10 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Don't have an account? "),
+                  Text(
+                    "Don't have an account? ",
+                    style: AppTextStyles.subtitle3,
+                  ),
                   GestureDetector(
                     onTap: () {},
                     child: Text('Register', style: AppTextStyles.bodyLightBlue),
