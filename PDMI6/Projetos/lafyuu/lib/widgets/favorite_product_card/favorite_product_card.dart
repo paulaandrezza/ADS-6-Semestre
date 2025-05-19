@@ -7,11 +7,13 @@ import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.d
 class FavoriteProductCard extends StatelessWidget {
   final FavoriteProduct favoriteProduct;
   final VoidCallback? onDelete;
+  final bool isFavorite;
 
   const FavoriteProductCard({
     super.key,
     required this.favoriteProduct,
     this.onDelete,
+    this.isFavorite = true,
   });
 
   @override
@@ -47,20 +49,29 @@ class FavoriteProductCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(favoriteProduct.title, style: AppTextStyles.body, maxLines: 2),
-            const SizedBox(height: 4),
-            Row(
-              children: List.generate(5, (index) {
-                return Icon(
-                  Icons.star,
-                  color:
-                      index < favoriteProduct.rating
-                          ? Colors.amber
-                          : AppColors.lightgrey,
-                  size: 14,
-                );
-              }),
+            SizedBox(
+              height: 40,
+              child: Text(
+                favoriteProduct.title,
+                style: AppTextStyles.body,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
+            if (isFavorite) const SizedBox(height: 4),
+            if (isFavorite)
+              Row(
+                children: List.generate(5, (index) {
+                  return Icon(
+                    Icons.star,
+                    color:
+                        index < favoriteProduct.rating
+                            ? Colors.amber
+                            : AppColors.lightgrey,
+                    size: 14,
+                  );
+                }),
+              ),
             const SizedBox(height: 16),
             Text(
               '\$${favoriteProduct.price.toStringAsFixed(2)}',
@@ -83,17 +94,18 @@ class FavoriteProductCard extends StatelessWidget {
                   ],
                 ),
 
-                InkWell(
-                  onTap: onDelete,
-                  borderRadius: BorderRadius.circular(16),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Icon(
-                      Icons.delete_outline_outlined,
-                      color: AppColors.grey,
+                if (isFavorite)
+                  InkWell(
+                    onTap: onDelete,
+                    borderRadius: BorderRadius.circular(16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.delete_outline_outlined,
+                        color: AppColors.grey,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ],
