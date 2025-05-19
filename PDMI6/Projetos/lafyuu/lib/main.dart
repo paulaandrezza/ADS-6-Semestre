@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lafyuu/models/product.dart';
 import 'package:lafyuu/views/main/screens/explore/favorite/favorite_screen.dart';
+import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
 
 import 'routes/app_routes.dart';
 import 'theme/app_theme.dart';
@@ -20,11 +22,29 @@ class MainApp extends StatelessWidget {
       title: 'Layfuu E-commerce',
       theme: AppTheme.lightTheme,
       initialRoute: AppRoutes.splash,
-      routes: {
-        AppRoutes.splash: (_) => SplashPage(),
-        AppRoutes.login: (_) => LoginPage(),
-        AppRoutes.main: (_) => MainNavigationPage(),
-        AppRoutes.exploreFavorites: (_) => FavoriteScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case AppRoutes.splash:
+            return MaterialPageRoute(builder: (_) => SplashPage());
+          case AppRoutes.login:
+            return MaterialPageRoute(builder: (_) => LoginPage());
+          case AppRoutes.main:
+            return MaterialPageRoute(builder: (_) => MainNavigationPage());
+          case AppRoutes.exploreFavorites:
+            return MaterialPageRoute(builder: (_) => FavoriteScreen());
+          case AppRoutes.productDetails:
+            final product = settings.arguments as Product;
+            return MaterialPageRoute(
+              builder: (_) => ProductDetailScreen(product: product),
+            );
+          default:
+            return MaterialPageRoute(
+              builder:
+                  (_) => Scaffold(
+                    body: Center(child: Text('Rota não encontrada')),
+                  ),
+            );
+        }
       },
     );
   }

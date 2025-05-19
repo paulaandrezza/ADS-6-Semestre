@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/favorite_product.dart';
+import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
@@ -22,13 +23,13 @@ class FavoriteProductCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (_) => ProductDetailScreen(product: favoriteProduct),
-          ),
+          AppRoutes.productDetails,
+          arguments: favoriteProduct,
         );
       },
+
       borderRadius: BorderRadius.circular(8),
       child: Container(
         width: 160,

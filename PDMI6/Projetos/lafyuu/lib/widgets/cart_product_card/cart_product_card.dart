@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/models/cart_product.dart';
@@ -34,11 +35,10 @@ class CartProductCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (_) => ProductDetailScreen(product: cartProduct),
-                    ),
+                    AppRoutes.productDetails,
+                    arguments: cartProduct,
                   );
                 },
                 child: Image.network(
