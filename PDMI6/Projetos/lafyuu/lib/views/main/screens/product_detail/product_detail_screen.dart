@@ -13,7 +13,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.title, style: AppTextStyles.title2),
+        title: Text(product.title, style: AppTextStyles.h2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
           onPressed: () {
@@ -22,13 +22,13 @@ class ProductDetailScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: AppColors.textSecondary),
+            icon: Icon(Icons.search, color: AppColors.grey),
             onPressed: () {
               // TODO: implementar search
             },
           ),
           IconButton(
-            icon: Icon(Icons.more_vert, color: AppColors.textSecondary),
+            icon: Icon(Icons.more_vert, color: AppColors.grey),
             onPressed: () {
               // TODO: implementar opções
             },
@@ -101,7 +101,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(product.title, style: AppTextStyles.title1),
+                    Text(product.title, style: AppTextStyles.h1),
                     FavoriteButton(isFavorite: product.isFavorite),
                   ],
                 ),
@@ -112,7 +112,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                       color:
                           index < product.rating
                               ? Colors.amber
-                              : AppColors.border,
+                              : AppColors.lightgrey,
                       size: 20,
                     );
                   }),
@@ -144,13 +144,13 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                               color:
                                   isSelected
                                       ? AppColors.primary
-                                      : AppColors.textSecondary,
+                                      : AppColors.grey,
                             ),
                           ),
                           child: Text(
                             size,
                             style: TextStyle(
-                              color: AppColors.textPrimary,
+                              color: AppColors.dark,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -191,6 +191,11 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                         );
                       }).toList(),
                 ),
+
+                const SizedBox(height: 24),
+
+                Text('Specification', style: AppTextStyles.body2),
+                const SizedBox(height: 8),
               ],
             ),
           ),

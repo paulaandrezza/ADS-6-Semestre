@@ -18,7 +18,7 @@ class SocialLoginButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: onTap,
       icon: Image.asset(assetPath, height: 20),
-      label: Text(label, style: AppTextStyles.subtitle),
+      label: Text(label, style: AppTextStyles.subtitle2),
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(double.infinity, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

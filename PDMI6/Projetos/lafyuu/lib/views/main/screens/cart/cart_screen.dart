@@ -39,7 +39,7 @@ class _CartScreenState extends State<CartScreen> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Your Cart', style: AppTextStyles.title2)),
+      appBar: AppBar(title: Text('Your Cart', style: AppTextStyles.h2)),
       body:
           isLandscape
               ? Row(
@@ -143,7 +143,7 @@ class OrderSummary extends StatelessWidget {
                       borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(8),
                       ),
-                      borderSide: BorderSide(color: AppColors.border),
+                      borderSide: BorderSide(color: AppColors.lightgrey),
                     ),
                   ),
                 ),
@@ -172,7 +172,7 @@ class OrderSummary extends StatelessWidget {
 
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.border),
+              border: Border.all(color: AppColors.lightgrey),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.all(16.0),
@@ -210,7 +210,7 @@ class OrderSummary extends StatelessWidget {
                 const Divider(
                   thickness: 1,
                   height: 32,
-                  color: AppColors.border,
+                  color: AppColors.lightgrey,
                 ),
 
                 Row(

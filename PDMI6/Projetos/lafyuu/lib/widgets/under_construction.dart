@@ -9,7 +9,7 @@ class UnderConstruction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Coming Soon', style: AppTextStyles.title2),
+        title: Text('Coming Soon', style: AppTextStyles.h2),
         centerTitle: true,
       ),
       body: Center(
@@ -18,10 +18,7 @@ class UnderConstruction extends StatelessWidget {
           children: [
             const Icon(Icons.warning, size: 64, color: AppColors.primary),
             const SizedBox(height: 20),
-            Text(
-              'This screen is under construction.',
-              style: AppTextStyles.title2,
-            ),
+            Text('This screen is under construction.', style: AppTextStyles.h2),
           ],
         ),
       ),

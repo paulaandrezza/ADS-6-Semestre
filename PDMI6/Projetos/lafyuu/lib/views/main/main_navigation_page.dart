@@ -37,7 +37,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
             }),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textSecondary,
+        unselectedItemColor: AppColors.grey,
         backgroundColor: Colors.white,
         items: [
           BottomNavigationBarItem(

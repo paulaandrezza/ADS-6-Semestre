@@ -8,44 +8,21 @@ class AppTextStyles {
     FontWeight fontWeight,
     Color color,
   ) {
-    return GoogleFonts.quicksand(
+    return GoogleFonts.poppins(
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,
     );
   }
 
-  static TextStyle title1 = _baseStyle(
-    24,
-    FontWeight.bold,
-    AppColors.textPrimary,
-  );
-  static TextStyle title2 = _baseStyle(
-    20,
-    FontWeight.w700,
-    AppColors.textPrimary,
-  );
-  static TextStyle subtitle = _baseStyle(
-    16,
-    FontWeight.w700,
-    AppColors.textSecondary,
-  );
-  static TextStyle subtitle2 = _baseStyle(
-    16,
-    FontWeight.w700,
-    AppColors.textPrimary,
-  );
+  static TextStyle h1 = _baseStyle(24, FontWeight.bold, AppColors.dark);
+  static TextStyle h2 = _baseStyle(20, FontWeight.w700, AppColors.dark);
+  static TextStyle subtitle = _baseStyle(16, FontWeight.normal, AppColors.grey);
+  static TextStyle subtitle2 = _baseStyle(16, FontWeight.w700, AppColors.grey);
   static TextStyle button = _baseStyle(16, FontWeight.w700, Colors.white);
-  static TextStyle body = _baseStyle(
-    14,
-    FontWeight.w600,
-    AppColors.textSecondary,
-  );
-  static TextStyle body2 = _baseStyle(
-    14,
-    FontWeight.w700,
-    AppColors.textPrimary,
-  );
+
+  static TextStyle body = _baseStyle(14, FontWeight.w600, AppColors.grey);
+  static TextStyle body2 = _baseStyle(14, FontWeight.w700, AppColors.dark);
   static TextStyle body3 = _baseStyle(14, FontWeight.normal, AppColors.primary);
   static TextStyle bodyLightBlue = _baseStyle(
     16,

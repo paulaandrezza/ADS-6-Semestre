@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               SvgPicture.asset('assets/images/logo.svg', height: 80),
               const SizedBox(height: 24),
 
-              Text('Welcome to Lafyuu', style: AppTextStyles.title2),
+              Text('Welcome to Lafyuu', style: AppTextStyles.h2),
               const SizedBox(height: 8),
 
               Text('Sign in to continue', style: AppTextStyles.subtitle),
@@ -64,11 +64,11 @@ class _LoginPageState extends State<LoginPage> {
 
               TextField(
                 controller: _emailController,
-                style: TextStyle(color: AppColors.textSecondary),
+                style: TextStyle(color: AppColors.grey),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.email_outlined,
-                    color: AppColors.textSecondary,
+                    color: AppColors.grey,
                   ),
                   hintText: 'Your Email',
                 ),
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.lock_outline,
-                    color: AppColors.textSecondary,
+                    color: AppColors.grey,
                   ),
                   hintText: 'Password',
                 ),

@@ -33,7 +33,7 @@ class FavoriteProductCard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.border),
+          border: Border.all(color: AppColors.lightgrey),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -56,7 +56,7 @@ class FavoriteProductCard extends StatelessWidget {
                   color:
                       index < favoriteProduct.rating
                           ? Colors.amber
-                          : AppColors.border,
+                          : AppColors.lightgrey,
                   size: 14,
                 );
               }),
@@ -90,7 +90,7 @@ class FavoriteProductCard extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: Icon(
                       Icons.delete_outline_outlined,
-                      color: AppColors.textSecondary,
+                      color: AppColors.grey,
                     ),
                   ),
                 ),

@@ -32,7 +32,7 @@ class CategoryGrid extends StatelessWidget {
               height: 56,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.border, width: 1),
+                border: Border.all(color: AppColors.lightgrey, width: 1),
                 color: Colors.white,
               ),
               child: Icon(category.icon, color: AppColors.primary),

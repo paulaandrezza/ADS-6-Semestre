@@ -32,10 +32,7 @@ class ExploreAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(
-            Icons.favorite_outline_outlined,
-            color: AppColors.textSecondary,
-          ),
+          icon: Icon(Icons.favorite_outline_outlined, color: AppColors.grey),
           onPressed: () {
             Navigator.of(
               context,
@@ -43,10 +40,7 @@ class ExploreAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
         IconButton(
-          icon: Icon(
-            Icons.notifications_outlined,
-            color: AppColors.textSecondary,
-          ),
+          icon: Icon(Icons.notifications_outlined, color: AppColors.grey),
           onPressed: () {
             // TODO: implementar notificação
           },
@@ -85,11 +79,11 @@ class ExploreBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Man Fashion', style: AppTextStyles.title2),
+          Text('Man Fashion', style: AppTextStyles.h2),
           const SizedBox(height: 16),
           CategoryGrid(categories: manCategories),
 
-          Text('Woman Fashion', style: AppTextStyles.title2),
+          Text('Woman Fashion', style: AppTextStyles.h2),
           const SizedBox(height: 16),
           CategoryGrid(categories: womanCategories),
         ],

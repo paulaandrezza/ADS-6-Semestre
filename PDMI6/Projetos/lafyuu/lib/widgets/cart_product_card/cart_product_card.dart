@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/models/cart_product.dart';
+import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
 import 'package:lafyuu/widgets/favorite_button.dart';
 import 'package:lafyuu/widgets/quantity_selector.dart';
 
@@ -24,18 +25,28 @@ class CartProductCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 12, right: 12, top: 4, bottom: 4),
 
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.lightgrey),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
           Column(
             children: [
-              Image.network(
-                cartProduct.imageUrl,
-                width: 80,
-                height: 80,
-                fit: BoxFit.contain,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProductDetailScreen(product: cartProduct),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  cartProduct.imageUrl,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.contain,
+                ),
               ),
             ],
           ),
