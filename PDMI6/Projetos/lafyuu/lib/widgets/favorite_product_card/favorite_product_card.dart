@@ -53,7 +53,7 @@ class FavoriteProductCard extends StatelessWidget {
               height: 40,
               child: Text(
                 favoriteProduct.title,
-                style: AppTextStyles.body,
+                style: AppTextStyles.body5,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -84,7 +84,11 @@ class FavoriteProductCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$${favoriteProduct.oldPrice.toStringAsFixed(2)}',
-                      style: AppTextStyles.body,
+                      style: AppTextStyles.body.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        decorationColor: AppColors.grey,
+                        color: Colors.grey,
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Text(

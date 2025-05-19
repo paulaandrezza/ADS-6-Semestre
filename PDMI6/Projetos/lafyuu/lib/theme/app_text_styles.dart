@@ -25,6 +25,7 @@ class AppTextStyles {
   static TextStyle body2 = _baseStyle(14, FontWeight.w700, AppColors.dark);
   static TextStyle body3 = _baseStyle(14, FontWeight.normal, AppColors.primary);
   static TextStyle body4 = _baseStyle(14, FontWeight.normal, AppColors.dark);
+  static TextStyle body5 = _baseStyle(14, FontWeight.bold, AppColors.dark);
   static TextStyle bodyLightBlue = _baseStyle(
     16,
     FontWeight.w700,
