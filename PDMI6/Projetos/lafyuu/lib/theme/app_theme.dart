@@ -38,11 +38,7 @@ class AppTheme {
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
-        style: ButtonStyle(
-          visualDensity: const VisualDensity(
-            horizontal: -4,
-          ), // ou personalizada // remove tamanho mínimo
-        ),
+        style: ButtonStyle(visualDensity: const VisualDensity(horizontal: -4)),
       ),
     );
   }
