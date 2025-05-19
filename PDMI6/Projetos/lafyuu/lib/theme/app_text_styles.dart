@@ -22,7 +22,7 @@ class AppTextStyles {
   static TextStyle subtitle3 = _baseStyle(
     16,
     FontWeight.normal,
-    AppColors.dark,
+    AppColors.grey,
   );
   static TextStyle button = _baseStyle(16, FontWeight.w700, Colors.white);
 
