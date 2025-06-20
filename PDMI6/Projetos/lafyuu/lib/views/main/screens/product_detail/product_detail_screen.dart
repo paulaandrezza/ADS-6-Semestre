@@ -14,7 +14,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.title, style: AppTextStyles.h2),
+        title: Text(product.name, style: AppTextStyles.h2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
           onPressed: () {
@@ -103,7 +103,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(product.title, style: AppTextStyles.h1),
+                    Text(product.name, style: AppTextStyles.h1),
                     FavoriteButton(isFavorite: product.isFavorite),
                   ],
                 ),

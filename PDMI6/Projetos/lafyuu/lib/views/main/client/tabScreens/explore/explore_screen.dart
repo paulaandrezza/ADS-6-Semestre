@@ -3,8 +3,8 @@ import 'package:lafyuu/mocks/products_mock.dart';
 import 'package:lafyuu/models/category_data.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/views/main/client/tabScreens/explore/favorite/favorite_screen.dart';
 import 'package:lafyuu/widgets/category_grid.dart';
-import 'package:lafyuu/views/main/screens/explore/favorite/favorite_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});

@@ -61,7 +61,7 @@ class CartProductCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
-                          cartProduct.title,
+                          cartProduct.name,
                           style: AppTextStyles.body2,
                           softWrap: true,
                         ),

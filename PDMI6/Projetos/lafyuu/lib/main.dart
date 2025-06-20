@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/product.dart';
-import 'package:lafyuu/views/main/screens/explore/favorite/favorite_screen.dart';
+import 'package:lafyuu/views/main/client/main_navigation_page.dart';
+import 'package:lafyuu/views/main/client/tabScreens/explore/favorite/favorite_screen.dart';
 import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
+import 'package:lafyuu/views/main/seller/seller_navigation_page.dart';
+import 'package:lafyuu/views/main/seller/tabScreens/productManager/product_manager_screen.dart';
 
 import 'routes/app_routes.dart';
 import 'theme/app_theme.dart';
 import 'views/login/login_page.dart';
-import 'views/main/main_navigation_page.dart';
 import 'views/splash/splash_page.dart';
 
 void main() {
@@ -30,8 +32,12 @@ class MainApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => LoginPage());
           case AppRoutes.main:
             return MaterialPageRoute(builder: (_) => MainNavigationPage());
+          case AppRoutes.sellerMain:
+            return MaterialPageRoute(builder: (_) => SellerNavigationPage());
           case AppRoutes.exploreFavorites:
             return MaterialPageRoute(builder: (_) => FavoriteScreen());
+          case AppRoutes.productManager:
+            return MaterialPageRoute(builder: (_) => ProductManagerScreen());
           case AppRoutes.productDetails:
             final product = settings.arguments as Product;
             return MaterialPageRoute(

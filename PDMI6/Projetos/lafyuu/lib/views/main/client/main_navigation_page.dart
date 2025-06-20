@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 
-import 'screens/account/account_screen.dart';
-import 'screens/cart/cart_screen.dart';
-import 'screens/explore/explore_screen.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/offer/offer_screen.dart';
+import 'tabScreens/account/account_screen.dart';
+import 'tabScreens/cart/cart_screen.dart';
+import 'tabScreens/explore/explore_screen.dart';
+import 'tabScreens/home/home_screen.dart';
+import 'tabScreens/offer/offer_screen.dart';
 
 class MainNavigationPage extends StatefulWidget {
   const MainNavigationPage({super.key});

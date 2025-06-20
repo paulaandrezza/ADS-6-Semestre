@@ -5,11 +5,12 @@ class CartProduct extends Product {
 
   CartProduct({
     required super.id,
-    required super.imageUrl,
-    required super.title,
+    required super.name,
+    required super.description,
     required super.price,
+    required super.discount,
+    required super.imageUrl,
     required super.oldPrice,
-    required super.discountPercent,
     required super.rating,
     super.isFavorite = false,
     this.quantity = 1,
@@ -25,11 +26,12 @@ class CartProduct extends Product {
   }) {
     return CartProduct(
       id: this.id,
-      title: this.title,
-      imageUrl: this.imageUrl,
+      name: name,
+      description: description,
       price: this.price,
+      discount: discount,
+      imageUrl: this.imageUrl,
       oldPrice: oldPrice,
-      discountPercent: discountPercent,
       rating: rating,
       isFavorite: isFavorite ?? this.isFavorite,
       quantity: quantity ?? this.quantity,

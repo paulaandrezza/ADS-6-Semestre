@@ -53,7 +53,7 @@ class FavoriteProductCard extends StatelessWidget {
             SizedBox(
               height: 40,
               child: Text(
-                favoriteProduct.title,
+                favoriteProduct.name,
                 style: AppTextStyles.body5,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -93,7 +93,7 @@ class FavoriteProductCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${favoriteProduct.discountPercent}% Off',
+                      '${favoriteProduct.discount}% Off',
                       style: AppTextStyles.body.copyWith(color: Colors.red),
                     ),
                   ],

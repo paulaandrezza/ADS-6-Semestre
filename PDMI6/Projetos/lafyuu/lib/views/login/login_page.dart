@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lafyuu/models/enums/UserRole.dart';
 import 'package:lafyuu/routes/app_routes.dart';
-import 'package:lafyuu/services/auth_service.dart';
+import 'package:lafyuu/services/login_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/primary_button.dart';
@@ -18,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
-  final _authService = AuthService();
 
   void _handleLogin() async {
     setState(() => _isLoading = true);
@@ -26,19 +26,27 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
-    final success = await _authService.login(email, password);
+    final loginService = LoginService();
 
-    setState(() => _isLoading = false);
+    try {
+      final user = await loginService.login(email, password);
+      
+      if (user.role == UserRole.seller) {
+        Navigator.pushReplacementNamed(context, AppRoutes.sellerMain);
+      } else {
+        Navigator.pushReplacementNamed(context, AppRoutes.main);
+      }
 
-    if (success) {
-      Navigator.pushReplacementNamed(context, AppRoutes.main);
-    } else {
+      Navigator.pushReplacementNamed(context, AppRoutes.main, arguments: user);
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Email or password is incorrect.'),
+        SnackBar(
+          content: Text(e.toString().replaceFirst('Exception: ', '')),
           backgroundColor: Colors.red,
         ),
       );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
