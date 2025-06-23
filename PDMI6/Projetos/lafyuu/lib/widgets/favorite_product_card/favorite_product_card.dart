@@ -75,7 +75,7 @@ class FavoriteProductCard extends StatelessWidget {
               ),
             const SizedBox(height: 16),
             Text(
-              '\$${favoriteProduct.price.toStringAsFixed(2)}',
+              '\$${(favoriteProduct.price * (1 - favoriteProduct.discount)).toStringAsFixed(2)}',
               style: AppTextStyles.bodyLightBlue,
             ),
             Row(
@@ -84,7 +84,7 @@ class FavoriteProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '\$${favoriteProduct.oldPrice.toStringAsFixed(2)}',
+                      '\$${favoriteProduct.price.toStringAsFixed(2)}',
                       style: AppTextStyles.body.copyWith(
                         decoration: TextDecoration.lineThrough,
                         decorationColor: AppColors.grey,
@@ -93,7 +93,7 @@ class FavoriteProductCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${favoriteProduct.discount}% Off',
+                      '${(favoriteProduct.discount * 100).toInt()}% Off',
                       style: AppTextStyles.body.copyWith(color: Colors.red),
                     ),
                   ],

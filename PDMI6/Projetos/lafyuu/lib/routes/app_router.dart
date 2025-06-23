@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/product.dart';
-import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/views/login/login_page.dart';
 import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_address_page.dart';

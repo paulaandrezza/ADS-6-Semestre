@@ -8,8 +8,7 @@ final List<FavoriteProduct> favoriteProductsMock = [
     name: 'Nike Air Max 270 React ENG',
     description: 'Um tênis confortável e estiloso para o dia a dia.',
     price: 299.43,
-    oldPrice: 534.33,
-    discount: 24.00,
+    discount: 0.2,
     rating: 4,
   ),
   FavoriteProduct(
@@ -19,8 +18,7 @@ final List<FavoriteProduct> favoriteProductsMock = [
     name: 'Nike Air Max',
     description: 'Um tênis confortável e estiloso para o dia a dia.',
     price: 120.0,
-    oldPrice: 150.0,
-    discount: 20.00,
+    discount: 0.2,
     rating: 4,
   ),
   FavoriteProduct(
@@ -29,8 +27,7 @@ final List<FavoriteProduct> favoriteProductsMock = [
     name: 'Adidas Ultraboost',
     description: 'Um tênis confortável e estiloso para o dia a dia.',
     price: 140.0,
-    oldPrice: 200.0,
-    discount: 30.00,
+    discount: 0.2,
     rating: 5,
   ),
 ];

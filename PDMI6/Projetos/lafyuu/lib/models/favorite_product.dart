@@ -8,7 +8,6 @@ class FavoriteProduct extends Product {
     required super.price,
     required super.discount,
     required super.imageUrl,
-    required super.oldPrice,
     required super.rating,
     super.isFavorite = true,
   });

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Product {
   final int id;
   final String name;
@@ -7,7 +5,6 @@ class Product {
   final double price;
   final double discount;
   final String imageUrl;
-  final double oldPrice;
   final int rating;
   final bool isFavorite;
 
@@ -18,7 +15,6 @@ class Product {
     required this.price,
     required this.discount,
     required this.imageUrl,
-    required this.oldPrice,
     required this.rating,
     this.isFavorite = false,
   });

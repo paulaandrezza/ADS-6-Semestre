@@ -36,12 +36,6 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         Navigator.pushReplacementNamed(context, AppRoutes.main.path);
       }
-
-      Navigator.pushReplacementNamed(
-        context,
-        AppRoutes.main.path,
-        arguments: user,
-      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

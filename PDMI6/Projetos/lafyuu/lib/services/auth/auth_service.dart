@@ -4,9 +4,10 @@ import 'package:lafyuu/models/enums/UserRole.dart';
 import 'package:lafyuu/models/user/user.dart';
 
 class AuthService {
+  // static const _mockToken =
+  //     'header.eyJpZCI6InVzZXJTZWxsZXIxMjMiLCJyb2xlIjoyfQ.signature';
   static const _mockToken =
-      'header.eyJpZCI6InVzZXJTZWxsZXIxMjMiLCJyb2xlIjoyfQ.signature';
-  // static const _mockToken = 'header.eyJpZCI6InVzZXJDbGllbnQxMjMiLCJyb2xlIjozfQ.signature';
+      'header.eyJpZCI6InVzZXJTZWxsZXIxMjMiLCJyb2xlIjoxfQ.signature';
 
   Future<String?> login(String email, String password) async {
     await Future.delayed(const Duration(seconds: 1));
