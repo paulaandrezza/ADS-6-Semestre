@@ -25,7 +25,7 @@ class FavoriteProductCard extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          AppRoutes.productDetails,
+          AppRoutes.productDetails.path,
           arguments: favoriteProduct,
         );
       },

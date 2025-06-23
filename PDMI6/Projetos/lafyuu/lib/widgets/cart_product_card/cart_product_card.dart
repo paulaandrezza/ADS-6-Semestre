@@ -37,7 +37,7 @@ class CartProductCard extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(
                     context,
-                    AppRoutes.productDetails,
+                    AppRoutes.productDetails.path,
                     arguments: cartProduct,
                   );
                 },

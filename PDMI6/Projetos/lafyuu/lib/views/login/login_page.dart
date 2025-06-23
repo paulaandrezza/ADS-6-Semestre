@@ -30,14 +30,18 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final user = await loginService.login(email, password);
-      
+
       if (user.role == UserRole.seller) {
-        Navigator.pushReplacementNamed(context, AppRoutes.sellerMain);
+        Navigator.pushReplacementNamed(context, AppRoutes.sellerMain.path);
       } else {
-        Navigator.pushReplacementNamed(context, AppRoutes.main);
+        Navigator.pushReplacementNamed(context, AppRoutes.main.path);
       }
 
-      Navigator.pushReplacementNamed(context, AppRoutes.main, arguments: user);
+      Navigator.pushReplacementNamed(
+        context,
+        AppRoutes.main.path,
+        arguments: user,
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
