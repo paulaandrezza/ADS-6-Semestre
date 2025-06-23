@@ -5,7 +5,7 @@ class Product {
   final String name;
   final String description;
   final double price;
-  final Float discount;
+  final double discount;
   final String imageUrl;
   final double oldPrice;
   final int rating;
