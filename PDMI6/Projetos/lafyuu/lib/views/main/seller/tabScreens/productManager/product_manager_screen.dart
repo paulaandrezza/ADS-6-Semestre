@@ -18,7 +18,7 @@ class _ProductManagerScreenState extends State<ProductManagerScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   // TODO: remover metodo removeProduct quando back estiver conectado, deixar direto no card do produtos
-  void _removeProduct(int id) {
+  void _removeProduct(String id) {
     setState(() {
       favoriteProducts.removeWhere((product) => product.id == id);
     });

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/favorite_product.dart';
-import 'favorite_product_card.dart';
+import '../product_card/product_card_compact.dart';
 
 class FavoriteProductCardList extends StatelessWidget {
   final List<FavoriteProduct> favoriteProducts;
-  final void Function(int) onDelete;
+  final void Function(String) onDelete;
 
   const FavoriteProductCardList({
     super.key,
@@ -27,7 +27,7 @@ class FavoriteProductCardList extends StatelessWidget {
       itemCount: favoriteProducts.length,
       itemBuilder: (context, index) {
         final favoriteProduct = favoriteProducts[index];
-        return FavoriteProductCard(
+        return ProductCardCompact(
           favoriteProduct: favoriteProduct,
           onDelete: () => onDelete(favoriteProduct.id),
         );

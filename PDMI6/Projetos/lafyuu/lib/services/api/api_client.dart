@@ -26,6 +26,15 @@ class ApiClient {
     return http.post(url, headers: headers, body: jsonEncode(body));
   }
 
+  Future<http.Response> postWithoutAuth(
+    String endpoint,
+    Map<String, dynamic> body,
+  ) async {
+    final url = Uri.parse('$_baseUrl$endpoint');
+    final headers = {'Content-Type': 'application/json'};
+    return http.post(url, headers: headers, body: jsonEncode(body));
+  }
+
   Future<http.Response> put(String endpoint, Map<String, dynamic> body) async {
     final url = Uri.parse('$_baseUrl$endpoint');
     final headers = await _getHeaders();

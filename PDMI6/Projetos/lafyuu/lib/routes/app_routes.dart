@@ -9,6 +9,7 @@ enum AppRoutes {
   productManager,
   accountProfile,
   accountOrders,
+  accountOrderDetails,
   accountAddress,
   accountPayment,
 }
@@ -35,7 +36,9 @@ extension AppRoutesExtension on AppRoutes {
       case AppRoutes.accountProfile:
         return '/account/profile';
       case AppRoutes.accountOrders:
-        return '/account/orders';
+        return '/account/order';
+      case AppRoutes.accountOrderDetails:
+        return '/account/order/details';
       case AppRoutes.accountAddress:
         return '/account/address';
       case AppRoutes.accountPayment:

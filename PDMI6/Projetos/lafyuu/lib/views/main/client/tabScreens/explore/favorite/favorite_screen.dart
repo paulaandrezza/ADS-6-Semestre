@@ -14,7 +14,7 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   List<FavoriteProduct> favoriteProducts = List.from(favoriteProductsMock);
 
-  void _removeProduct(int id) {
+  void _removeProduct(String id) {
     setState(() {
       favoriteProducts.removeWhere((product) => product.id == id);
     });

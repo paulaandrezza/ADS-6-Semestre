@@ -9,7 +9,7 @@ class AuthService {
 
   Future<String?> signIn(String email, String password) async {
     try {
-      final response = await _apiClient.post('/users/sign-in', {
+      final response = await _apiClient.postWithoutAuth('/users/sign-in', {
         'email': email,
         'password': password,
       });
@@ -36,7 +36,7 @@ class AuthService {
     String gender,
   ) async {
     try {
-      final response = await _apiClient.post('/users/sign-up', {
+      final response = await _apiClient.postWithoutAuth('/users/sign-up', {
         'name': fullName,
         'username': username,
         'email': email,

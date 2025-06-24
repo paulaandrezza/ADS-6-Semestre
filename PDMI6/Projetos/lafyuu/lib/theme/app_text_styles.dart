@@ -19,8 +19,9 @@ class AppTextStyles {
   static TextStyle h2 = _baseStyle(20, FontWeight.w700, AppColors.dark);
   static TextStyle subtitle = _baseStyle(16, FontWeight.normal, AppColors.grey);
   static TextStyle subtitle2 = _baseStyle(16, FontWeight.w700, AppColors.grey);
-  static TextStyle subtitle3 = _baseStyle(16, FontWeight.w700, AppColors.grey);
+  static TextStyle subtitle3 = _baseStyle(16, FontWeight.w500, AppColors.grey);
   static TextStyle subtitle4 = _baseStyle(16, FontWeight.w700, AppColors.dark);
+  static TextStyle subtitle5 = _baseStyle(16, FontWeight.w400, AppColors.dark);
   static TextStyle button = _baseStyle(16, FontWeight.w700, Colors.white);
 
   static TextStyle body = _baseStyle(14, FontWeight.w500, AppColors.grey);

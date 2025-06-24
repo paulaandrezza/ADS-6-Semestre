@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/mocks/products_mock.dart';
+import 'package:lafyuu/mocks/products_mock_search.dart';
 import 'package:lafyuu/models/category_data.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';

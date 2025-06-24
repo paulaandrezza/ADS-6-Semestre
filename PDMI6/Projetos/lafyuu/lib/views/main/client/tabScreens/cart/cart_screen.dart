@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/mocks/cart_products_mock.dart';
-import 'package:lafyuu/models/cart_product.dart';
+import 'package:lafyuu/mocks/products_mock.dart';
+import 'package:lafyuu/models/product.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
-import 'package:lafyuu/widgets/cart_product_card/cart_product_card_list.dart';
+import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
 import 'package:lafyuu/widgets/primary_button.dart';
 
 class CartScreen extends StatefulWidget {
@@ -14,21 +14,19 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<CartProduct> cartProducts = List.from(cartProductsMock);
+  List<Product> products = List.from(productsMock);
 
-  void _removeProduct(int id) {
+  void _removeProduct(String id) {
     setState(() {
-      cartProducts.removeWhere((product) => product.id == id);
+      products.removeWhere((product) => product.id == id);
     });
   }
 
-  void _updateQuantity(int id, int newQuantity) {
+  void _updateQuantity(String id, int newQuantity) {
     setState(() {
-      final index = cartProducts.indexWhere((product) => product.id == id);
+      final index = products.indexWhere((product) => product.id == id);
       if (index != -1) {
-        cartProducts[index] = cartProducts[index].copyWith(
-          quantity: newQuantity,
-        );
+        products[index] = products[index].copyWith(quantity: newQuantity);
       }
     });
   }
@@ -48,8 +46,8 @@ class _CartScreenState extends State<CartScreen> {
                     flex: 3,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: CartProductCardList(
-                        cartProducts: cartProducts,
+                      child: ProductCardLargeList(
+                        products: products,
                         onDelete: _removeProduct,
                         onQuantityChange: _updateQuantity,
                       ),
@@ -60,13 +58,13 @@ class _CartScreenState extends State<CartScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: OrderSummary(
-                        totalPrice: cartProducts.fold(
+                        totalPrice: products.fold(
                           0.0,
-                          (sum, p) => sum + p.price * p.quantity,
+                          (sum, p) => sum + p.price * (p.quantity ?? 1),
                         ),
-                        itemCount: cartProducts.fold(
+                        itemCount: products.fold(
                           0,
-                          (sum, p) => sum + p.quantity,
+                          (sum, p) => sum + (p.quantity ?? 1),
                         ),
                         isLandscape: isLandscape,
                       ),
@@ -79,21 +77,21 @@ class _CartScreenState extends State<CartScreen> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: CartProductCardList(
-                        cartProducts: cartProducts,
+                      child: ProductCardLargeList(
+                        products: products,
                         onDelete: _removeProduct,
                         onQuantityChange: _updateQuantity,
                       ),
                     ),
                   ),
                   OrderSummary(
-                    totalPrice: cartProducts.fold(
+                    totalPrice: products.fold(
                       0.0,
-                      (sum, p) => sum + p.price * p.quantity,
+                      (sum, p) => sum + p.price * (p.quantity ?? 1),
                     ),
-                    itemCount: cartProducts.fold(
+                    itemCount: products.fold(
                       0,
-                      (sum, p) => sum + p.quantity,
+                      (sum, p) => sum + (p.quantity ?? 1),
                     ),
                     isLandscape: isLandscape,
                   ),

@@ -1,8 +1,7 @@
 import 'package:lafyuu/models/enums/Gender.dart';
 import 'package:lafyuu/models/enums/UserRole.dart';
-import 'package:lafyuu/models/user/user.dart';
 
-class UserDetails extends User {
+class UserDetails {
   final String fullName;
   final String username;
   final String profileImageId;
@@ -23,5 +22,26 @@ class UserDetails extends User {
     required this.createdAt,
     required this.gender,
     required this.birthDate,
-  }) : super(userId: userId, role: role);
+  });
+
+  factory UserDetails.fromJson(Map<String, dynamic> json) {
+    return UserDetails(
+      userId: json['userId'],
+      role: UserRole.values.firstWhere(
+        (r) => r.name.toLowerCase() == (json['role'] as String).toLowerCase(),
+        orElse: () => UserRole.client,
+      ),
+      fullName: json['fullName'],
+      username: json['username'],
+      profileImageId: json['profileImageId'] ?? '',
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      createdAt: DateTime.parse(json['createdAt']),
+      gender: Gender.values.firstWhere(
+        (g) => g.name.toLowerCase() == (json['gender'] as String).toLowerCase(),
+        orElse: () => Gender.other,
+      ),
+      birthDate: DateTime.parse(json['birthDate']),
+    );
+  }
 }

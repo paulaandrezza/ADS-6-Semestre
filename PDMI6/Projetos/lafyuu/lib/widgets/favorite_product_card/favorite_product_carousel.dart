@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/favorite_products_mock.dart';
 import 'package:lafyuu/models/favorite_product.dart';
-import 'favorite_product_card.dart';
+import '../product_card/product_card_compact.dart';
 
 class FavoriteProductCarousel extends StatelessWidget {
   final List<FavoriteProduct> favoriteProducts = favoriteProductsMock;
@@ -22,7 +22,7 @@ class FavoriteProductCarousel extends StatelessWidget {
           final product = favoriteProducts[index];
           return SizedBox(
             width: 180,
-            child: FavoriteProductCard(
+            child: ProductCardCompact(
               favoriteProduct: product,
               onDelete: () => handleDelete,
               isFavorite: false,

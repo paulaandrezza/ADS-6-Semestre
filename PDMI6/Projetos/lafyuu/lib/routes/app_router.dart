@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lafyuu/models/product.dart';
 import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_address_page.dart';
-import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_orders_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_payment_page.dart';
-import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_profile_page.dart';
+import 'package:lafyuu/views/main/client/tabScreens/account/pages/order/account_order_page.dart';
+import 'package:lafyuu/views/main/client/tabScreens/account/pages/order/order_detail_page.dart';
+import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/account_profile_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/explore/favorite/favorite_screen.dart';
 import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
 import 'package:lafyuu/views/main/seller/seller_navigation_page.dart';
@@ -36,8 +37,13 @@ Route<dynamic> generateAppRoute(RouteSettings settings) {
       );
     case '/account/profile':
       return MaterialPageRoute(builder: (_) => AccountProfilePage());
-    case '/account/orders':
-      return MaterialPageRoute(builder: (_) => AccountOrdersPage());
+    case '/account/order':
+      return MaterialPageRoute(builder: (_) => AccountOrderPage());
+    case '/account/order/details':
+      final orderId = settings.arguments as String;
+      return MaterialPageRoute(
+        builder: (_) => AccountOrderDetailPage(orderId: orderId),
+      );
     case '/account/address':
       return MaterialPageRoute(builder: (_) => AccountAddressPage());
     case '/account/payment':
