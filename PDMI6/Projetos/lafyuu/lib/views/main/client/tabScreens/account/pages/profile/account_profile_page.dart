@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/enums/Gender.dart';
-import 'package:lafyuu/presentation/data/account/profile_info_item.dart';
+import 'package:lafyuu/presentation/build/account/profile_info_item.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/profile_info_item.dart';
 

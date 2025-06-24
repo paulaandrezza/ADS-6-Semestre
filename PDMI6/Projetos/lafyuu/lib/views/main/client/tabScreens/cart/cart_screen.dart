@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/products_mock.dart';
 import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/presentation/build/summary/build_order_summary_lines.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
 import 'package:lafyuu/widgets/primary_button.dart';
+import 'package:lafyuu/widgets/summary/summary_card.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key});
@@ -125,6 +127,12 @@ class OrderSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryLines = buildOrderSummaryLines(
+      itemCount: itemCount,
+      totalPrice: totalPrice,
+      shippingCost: 40.00,
+    );
+
     final content = Padding(
       padding: EdgeInsets.all(isLandscape ? 8.0 : 16.0),
       child: Column(
@@ -166,64 +174,7 @@ class OrderSummary extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 16),
-
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.lightgrey),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Items ($itemCount)', style: AppTextStyles.body),
-                    Text(
-                      '\$${totalPrice.toStringAsFixed(2)}',
-                      style: AppTextStyles.body,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Shipping', style: AppTextStyles.body),
-                    Text('\$40.00', style: AppTextStyles.body),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Import Charges', style: AppTextStyles.body),
-                    Text(
-                      '\$${(totalPrice * 0.2).toStringAsFixed(2)}',
-                      style: AppTextStyles.body,
-                    ),
-                  ],
-                ),
-                const Divider(
-                  thickness: 1,
-                  height: 32,
-                  color: AppColors.lightgrey,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Total Price', style: AppTextStyles.body2),
-                    Text(
-                      '\$${(totalPrice * 1.2 + 40).toStringAsFixed(2)}',
-                      style: AppTextStyles.body3,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          SummaryCard(lines: summaryLines),
         ],
       ),
     );
