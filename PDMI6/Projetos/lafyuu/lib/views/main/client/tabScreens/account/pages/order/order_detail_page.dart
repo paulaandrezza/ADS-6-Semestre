@@ -7,6 +7,7 @@ import 'package:lafyuu/presentation/build/summary/build_order_summary_lines.dart
 import 'package:lafyuu/presentation/build/summary/build_shipping_summary_lines.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/order/order_status_step_indicator.dart';
+import 'package:lafyuu/widgets/primary_button.dart';
 import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
 import 'package:lafyuu/widgets/summary/summary_card.dart';
 
@@ -53,6 +54,16 @@ class AccountOrderDetailPage extends StatelessWidget {
 
             Text('Payment Details:', style: AppTextStyles.subtitle4),
             SummaryCard(lines: paymentSummaryLines),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PrimaryButton(label: 'Notify Me', onPressed: () {}),
+            const SizedBox(height: 16),
           ],
         ),
       ),
