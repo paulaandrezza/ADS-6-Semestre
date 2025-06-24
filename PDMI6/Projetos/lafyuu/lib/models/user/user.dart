@@ -1,11 +1,8 @@
 import 'package:lafyuu/models/enums/UserRole.dart';
 
 class User {
-  final String id;
+  final String userId;
   final UserRole role;
 
-  User({
-    required this.id,
-    required this.role,
-  });
+  User({required this.userId, required this.role});
 }

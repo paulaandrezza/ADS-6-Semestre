@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
 
       Navigator.pushReplacementNamed(
         context,
-        isLoggedIn ? AppRoutes.main.path : AppRoutes.login.path,
+        isLoggedIn ? AppRoutes.main.path : AppRoutes.signIn.path,
       );
     });
   }

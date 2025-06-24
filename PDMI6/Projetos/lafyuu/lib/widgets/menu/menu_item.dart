@@ -13,17 +13,31 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, item.route.path);
+        if (item.onTap != null) {
+          item.onTap!(context);
+        } else if (item.route != null) {
+          Navigator.pushNamed(context, item.route!.path);
+        }
       },
+
       splashColor: AppColors.lightgrey,
       highlightColor: AppColors.lightgrey,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         child: Row(
           children: [
-            Icon(item.icon, color: AppColors.primary),
+            Icon(
+              item.icon,
+              color: item.isDestructive ? Colors.red : AppColors.primary,
+            ),
             const SizedBox(width: 12),
-            Text(item.title, style: AppTextStyles.subtitle4),
+            Text(
+              item.title,
+              style:
+                  item.isDestructive
+                      ? AppTextStyles.subtitle4.copyWith(color: Colors.red)
+                      : AppTextStyles.subtitle4,
+            ),
           ],
         ),
       ),

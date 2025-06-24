@@ -27,6 +27,10 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.primary),
           borderRadius: BorderRadius.circular(8),
         ),
+        border: const OutlineInputBorder(),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
         hintStyle: AppTextStyles.subtitle,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

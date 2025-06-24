@@ -1,6 +1,7 @@
 enum AppRoutes {
   splash,
-  login,
+  signIn,
+  signUp,
   main,
   sellerMain,
   exploreFavorites,
@@ -17,8 +18,10 @@ extension AppRoutesExtension on AppRoutes {
     switch (this) {
       case AppRoutes.splash:
         return '/';
-      case AppRoutes.login:
-        return '/login';
+      case AppRoutes.signIn:
+        return '/signIn';
+      case AppRoutes.signUp:
+        return '/signUp';
       case AppRoutes.main:
         return '/main';
       case AppRoutes.sellerMain:

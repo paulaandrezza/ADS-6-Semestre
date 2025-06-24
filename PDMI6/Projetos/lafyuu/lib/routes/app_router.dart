@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/product.dart';
-import 'package:lafyuu/views/login/login_page.dart';
 import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_address_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_orders_page.dart';
@@ -10,14 +9,18 @@ import 'package:lafyuu/views/main/client/tabScreens/explore/favorite/favorite_sc
 import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
 import 'package:lafyuu/views/main/seller/seller_navigation_page.dart';
 import 'package:lafyuu/views/main/seller/tabScreens/productManager/product_manager_screen.dart';
+import 'package:lafyuu/views/sign/sign_in_page.dart';
+import 'package:lafyuu/views/sign/sign_up_page.dart';
 import 'package:lafyuu/views/splash/splash_page.dart';
 
 Route<dynamic> generateAppRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
       return MaterialPageRoute(builder: (_) => SplashPage());
-    case '/login':
-      return MaterialPageRoute(builder: (_) => LoginPage());
+    case '/signIn':
+      return MaterialPageRoute(builder: (_) => SignInPage());
+    case '/signUp':
+      return MaterialPageRoute(builder: (_) => SignUpPage());
     case '/main':
       return MaterialPageRoute(builder: (_) => MainNavigationPage());
     case '/sellerMain':

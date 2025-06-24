@@ -3,8 +3,7 @@ import 'package:lafyuu/models/enums/UserRole.dart';
 import 'package:lafyuu/models/user/user.dart';
 
 class UserDetails extends User {
-  final String firstName;
-  final String lastName;
+  final String fullName;
   final String username;
   final String profileImageId;
   final String email;
@@ -14,10 +13,9 @@ class UserDetails extends User {
   final DateTime birthDate;
 
   UserDetails({
-    required String id,
+    required String userId,
     required UserRole role,
-    required this.firstName,
-    required this.lastName,
+    required this.fullName,
     required this.username,
     required this.profileImageId,
     required this.email,
@@ -25,5 +23,5 @@ class UserDetails extends User {
     required this.createdAt,
     required this.gender,
     required this.birthDate,
-  }) : super(id: id, role: role);
+  }) : super(userId: userId, role: role);
 }

@@ -2,21 +2,62 @@ import 'dart:convert';
 
 import 'package:lafyuu/models/enums/UserRole.dart';
 import 'package:lafyuu/models/user/user.dart';
+import 'package:lafyuu/services/api/api_client.dart';
 
 class AuthService {
-  // static const _mockToken =
-  //     'header.eyJpZCI6InVzZXJTZWxsZXIxMjMiLCJyb2xlIjoyfQ.signature';
-  static const _mockToken =
-      'header.eyJpZCI6InVzZXJTZWxsZXIxMjMiLCJyb2xlIjoxfQ.signature';
+  final ApiClient _apiClient = ApiClient();
 
-  Future<String?> login(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<String?> signIn(String email, String password) async {
+    try {
+      final response = await _apiClient.post('/users/sign-in', {
+        'email': email,
+        'password': password,
+      });
 
-    if (email == 'paula@example.com' && password == '123456') {
-      return _mockToken;
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        return jsonResponse['token'];
+      } else {
+        final Map<String, dynamic> errorResponse = jsonDecode(response.body);
+        throw Exception('SignIn failed: ${errorResponse['error']}');
+      }
+    } catch (e) {
+      rethrow;
     }
+  }
 
-    return null;
+  Future<String?> signUp(
+    String fullName,
+    String username,
+    String email,
+    String password,
+    DateTime birthDate,
+    String phoneNumber,
+    String gender,
+  ) async {
+    try {
+      final response = await _apiClient.post('/users/sign-up', {
+        'name': fullName,
+        'username': username,
+        'email': email,
+        'password': password,
+        'birthDate':
+            '${birthDate.day.toString().padLeft(2, '0')}/${birthDate.month.toString().padLeft(2, '0')}/${birthDate.year}',
+
+        'phoneNumber': phoneNumber,
+        'gender': gender.toLowerCase(),
+        'role': 'client',
+      });
+
+      if (response.statusCode == 204) {
+        return null;
+      } else {
+        final Map<String, dynamic> errorResponse = jsonDecode(response.body);
+        throw Exception('SignUp failed: ${errorResponse['error']}');
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   User? parseToken(String token) {
@@ -30,15 +71,16 @@ class AuthService {
 
       final Map<String, dynamic> payload = json.decode(decoded);
 
-      final String id = payload['id'];
-      final int roleNumber = payload['role'];
+      final String userId = payload['userId'];
+
+      final String roleString = payload['role'];
 
       final role = UserRole.values.firstWhere(
-        (r) => r.index == roleNumber,
+        (r) => r.name == roleString.toLowerCase(),
         orElse: () => UserRole.client,
       );
 
-      return User(id: id, role: role);
+      return User(userId: userId, role: role);
     } catch (e) {
       print('Error parsing token: $e');
       return null;
