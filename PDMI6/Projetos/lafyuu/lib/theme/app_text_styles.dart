@@ -17,6 +17,8 @@ class AppTextStyles {
 
   static TextStyle h1 = _baseStyle(24, FontWeight.bold, AppColors.dark);
   static TextStyle h2 = _baseStyle(20, FontWeight.w700, AppColors.dark);
+  static TextStyle h3 = _baseStyle(18, FontWeight.w700, AppColors.dark);
+
   static TextStyle subtitle = _baseStyle(16, FontWeight.normal, AppColors.grey);
   static TextStyle subtitle2 = _baseStyle(16, FontWeight.w700, AppColors.grey);
   static TextStyle subtitle3 = _baseStyle(16, FontWeight.w500, AppColors.grey);

@@ -4,44 +4,39 @@ import 'package:lafyuu/models/enums/UserRole.dart';
 class UserDetails {
   final String fullName;
   final String username;
-  final String profileImageId;
+  final String profileImageUrl;
   final String email;
   final String phoneNumber;
-  final DateTime createdAt;
   final Gender gender;
   final DateTime birthDate;
 
   UserDetails({
-    required String userId,
-    required UserRole role,
     required this.fullName,
     required this.username,
-    required this.profileImageId,
+    required this.profileImageUrl,
     required this.email,
     required this.phoneNumber,
-    required this.createdAt,
     required this.gender,
     required this.birthDate,
   });
 
   factory UserDetails.fromJson(Map<String, dynamic> json) {
     return UserDetails(
-      userId: json['userId'],
-      role: UserRole.values.firstWhere(
-        (r) => r.name.toLowerCase() == (json['role'] as String).toLowerCase(),
-        orElse: () => UserRole.client,
-      ),
-      fullName: json['fullName'],
+      fullName: json['name'],
       username: json['username'],
-      profileImageId: json['profileImageId'] ?? '',
+      profileImageUrl: json['profileUrl'] ?? '',
       email: json['email'],
       phoneNumber: json['phoneNumber'],
-      createdAt: DateTime.parse(json['createdAt']),
       gender: Gender.values.firstWhere(
-        (g) => g.name.toLowerCase() == (json['gender'] as String).toLowerCase(),
+        (g) =>
+            g.name.toLowerCase() == (json['gender']?.toString().toLowerCase()),
         orElse: () => Gender.other,
       ),
-      birthDate: DateTime.parse(json['birthDate']),
+      birthDate:
+          json['birthDate'] != null
+              ? DateTime.tryParse(json['birthDate'].toString()) ??
+                  DateTime(2000, 1, 1)
+              : DateTime(2000, 1, 1),
     );
   }
 }

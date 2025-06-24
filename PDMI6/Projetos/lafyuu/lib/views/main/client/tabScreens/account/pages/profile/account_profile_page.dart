@@ -1,25 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lafyuu/models/enums/Gender.dart';
-import 'package:lafyuu/presentation/build/account/profile_info_item.dart';
+import 'package:lafyuu/models/user/user_details.dart';
+import 'package:lafyuu/presentation/build/account/build_profile_info_items.dart';
+import 'package:lafyuu/services/account/account_service.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/profile_info_item.dart';
 
-class AccountProfilePage extends StatelessWidget {
-  AccountProfilePage({super.key});
+class AccountProfilePage extends StatefulWidget {
+  const AccountProfilePage({super.key});
 
-  final profileInfoItems = buildProfileInfoItems(
-    gender: Gender.male.name,
-    birthDate: "12-12-2000",
-    email: "email@email.com",
-    phoneNumber: "11954544544",
-    // gender: user.gender,
-    // birthDate: user.birthDate,
-    // email: user.email,
-    // phoneNumber: user.phoneNumber,
-  );
+  @override
+  State<AccountProfilePage> createState() => _AccountProfilePageState();
+}
+
+class _AccountProfilePageState extends State<AccountProfilePage> {
+  UserDetails? userDetails;
+  bool isLoading = true;
+  String? errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserDetails();
+  }
+
+  Future<void> _loadUserDetails() async {
+    try {
+      final user = await AccountService().get();
+      setState(() {
+        userDetails = user;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (errorMessage != null) {
+      return Scaffold(body: Center(child: Text('Error: $errorMessage')));
+    }
+
+    final profileInfoItems = buildProfileInfoItems(
+      gender: userDetails?.gender.name ?? Gender.other.name,
+      birthDate: DateFormat('yyyy-MM-dd').format(userDetails!.birthDate),
+      email: userDetails!.email,
+      phoneNumber: userDetails!.phoneNumber,
+    );
+
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
       body: Padding(
@@ -34,9 +71,15 @@ class AccountProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/james.png'),
+                    backgroundImage:
+                        (userDetails?.profileImageUrl.isNotEmpty ?? false)
+                            ? NetworkImage(userDetails!.profileImageUrl)
+                            : const AssetImage(
+                                  'assets/images/blank_profile.png',
+                                )
+                                as ImageProvider,
                   ),
                   const SizedBox(width: 24),
                   Expanded(
@@ -44,8 +87,11 @@ class AccountProfilePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Maximus Gold', style: AppTextStyles.subtitle4),
-                        Text('@derlaxy', style: AppTextStyles.subtitle),
+                        Text(userDetails!.fullName, style: AppTextStyles.h3),
+                        Text(
+                          '@${userDetails!.username}',
+                          style: AppTextStyles.subtitle,
+                        ),
                       ],
                     ),
                   ),
