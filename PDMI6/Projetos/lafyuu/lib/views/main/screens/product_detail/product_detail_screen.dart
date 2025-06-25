@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/product/product.dart';
+import 'package:lafyuu/models/product/product_detail.dart';
+import 'package:lafyuu/routes/app_routes.dart';
+import 'package:lafyuu/services/cart/cart_service.dart';
 import 'package:lafyuu/services/product/product_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 import 'package:lafyuu/widgets/favorite_button.dart';
 import 'package:lafyuu/widgets/favorite_product_card/favorite_product_carousel.dart';
 import 'package:lafyuu/widgets/primary_button.dart';
@@ -17,9 +20,11 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  Product? product;
+  final CartService _cartService = CartService();
+  ProductDetail? product;
   bool isLoading = true;
   String? errorMessage;
+  late Variant selectedVariant;
 
   @override
   void initState() {
@@ -32,6 +37,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       final fetchedProduct = await ProductService().getById(widget.productId);
       setState(() {
         product = fetchedProduct;
+        selectedVariant = fetchedProduct.variants.first;
         isLoading = false;
       });
     } catch (e) {
@@ -39,6 +45,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         errorMessage = e.toString();
         isLoading = false;
       });
+    }
+  }
+
+  Future<void> _addProductToCart(String productVariantId) async {
+    try {
+      await _cartService.addItemToCart(productVariantId, 1);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Item added to cart successfully. Redirecting to cart...',
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      await Future.delayed(const Duration(seconds: 2));
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const MainNavigationPage(initialIndex: 2),
+        ),
+        (route) => false,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -70,26 +105,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.search, color: AppColors.grey),
-            onPressed: () {
-              // TODO: implementar search
-            },
+            onPressed: () {},
           ),
           IconButton(
             icon: Icon(Icons.more_vert, color: AppColors.grey),
-            onPressed: () {
-              // TODO: implementar opções
-            },
+            onPressed: () {},
           ),
           SizedBox(width: 16),
         ],
       ),
-      body: ProductDetailScreenBody(product: product!),
+      body: ProductDetailScreenBody(
+        product: product!,
+        selectedVariant: selectedVariant!,
+        onVariantSelected: (variant) {
+          setState(() {
+            selectedVariant = variant;
+          });
+        },
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            PrimaryButton(label: 'Add to Cart', onPressed: () {}),
+            PrimaryButton(
+              label: 'Add to Cart',
+              onPressed: () => _addProductToCart(selectedVariant.id),
+            ),
             const SizedBox(height: 16),
           ],
         ),
@@ -98,32 +140,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-class ProductDetailScreenBody extends StatefulWidget {
-  final Product product;
+class ProductDetailScreenBody extends StatelessWidget {
+  final ProductDetail product;
+  final Variant selectedVariant;
+  final Function(Variant) onVariantSelected;
 
-  const ProductDetailScreenBody({super.key, required this.product});
-
-  @override
-  State<ProductDetailScreenBody> createState() =>
-      _ProductDetailScreenBodyState(product: product);
-}
-
-class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
-  final Product product;
-
-  _ProductDetailScreenBodyState({required this.product});
+  const ProductDetailScreenBody({
+    super.key,
+    required this.product,
+    required this.selectedVariant,
+    required this.onVariantSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     final sizes = ['6', '6.5', '7', '7.5', '8', '8.5'];
-    final colors = [
-      Colors.amber,
-      Colors.lightBlue,
-      Colors.redAccent,
-      Colors.greenAccent,
-      Colors.blue,
-      Colors.indigo,
-    ];
+    final List<VariantColor> uniqueColors =
+        {
+          for (var v in product.variants) v.color.hexCode: v.color,
+        }.values.toList();
 
     return SingleChildScrollView(
       child: Column(
@@ -132,7 +167,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
           ClipRect(
             child: Center(
               child: Image.network(
-                product.imageUrl,
+                selectedVariant.imageUrl,
                 height: 250,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -167,14 +202,14 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                 ),
 
                 Text(
-                  '\$${(product.price * (1 - product.discount)).toStringAsFixed(2)}',
+                  '\$${(selectedVariant.price * (1 - selectedVariant.discount)).toStringAsFixed(2)}',
                   style: AppTextStyles.bodyLightBlue2,
                 ),
 
                 Row(
                   children: [
                     Text(
-                      '\$${product.price.toStringAsFixed(2)}',
+                      '\$${selectedVariant.price.toStringAsFixed(2)}',
                       style: AppTextStyles.body.copyWith(
                         decoration: TextDecoration.lineThrough,
                         decorationColor: AppColors.grey,
@@ -183,73 +218,109 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${(product.discount * 100).toInt()}% Off',
+                      '${(selectedVariant.discount * 100).toInt()}% Off',
                       style: AppTextStyles.body.copyWith(color: Colors.red),
                     ),
                   ],
                 ),
 
                 Text('Select Size', style: AppTextStyles.body2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:
-                      sizes.map((size) {
-                        final bool isSelected = size == '7';
-                        return Container(
-                          width: 40,
-                          height: 40,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color:
-                                  isSelected
-                                      ? AppColors.primary
-                                      : AppColors.grey,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children:
+                        sizes.map((size) {
+                          final bool isSelected = size == '6';
+                          return Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            width: 40,
+                            height: 40,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color:
+                                    isSelected
+                                        ? AppColors.primary
+                                        : AppColors.grey,
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            size,
-                            style: TextStyle(
-                              color: AppColors.dark,
-                              fontWeight: FontWeight.bold,
+                            child: Text(
+                              size,
+                              style: TextStyle(
+                                color: AppColors.dark,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                  ),
                 ),
 
                 Text('Select Color', style: AppTextStyles.body2),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:
-                      colors.map((color) {
-                        final bool isSelected = color == Colors.amber;
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children:
+                        uniqueColors.map((colorObj) {
+                          final color = Color(
+                            int.parse(
+                              colorObj.hexCode.replaceFirst('#', '0xff'),
+                            ),
+                          );
 
-                        return Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: color,
-                          ),
-                          child:
-                              isSelected
-                                  ? Center(
-                                    child: Container(
-                                      width: 16,
-                                      height: 16,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                  : null,
-                        );
-                      }).toList(),
+                          final isSelected =
+                              selectedVariant.color.id == colorObj.id;
+
+                          // Detecta se a cor é branca (ignora caixa alta/baixa)
+                          final isWhite =
+                              colorObj.hexCode.toLowerCase() == '#ffffff';
+
+                          return GestureDetector(
+                            onTap: () {
+                              final matchingVariant = product.variants
+                                  .firstWhere(
+                                    (v) => v.color.id == colorObj.id,
+                                    orElse: () => product.variants.first,
+                                  );
+                              onVariantSelected(matchingVariant);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: color,
+                                border: Border.all(
+                                  color: AppColors.lightgrey,
+                                  width: 2,
+                                ),
+                              ),
+                              child:
+                                  isSelected
+                                      ? Center(
+                                        child: Container(
+                                          width: 14,
+                                          height: 14,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                isWhite
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                      : null,
+                            ),
+                          );
+                        }).toList(),
+                  ),
                 ),
+
+                const SizedBox(height: 16),
 
                 Text('Specification', style: AppTextStyles.body2),
 
@@ -320,7 +391,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                   ],
                 ),
 
-                Text(product.description!, style: AppTextStyles.body),
+                Text(product.description ?? '', style: AppTextStyles.body),
 
                 const SizedBox(height: 8),
                 Row(

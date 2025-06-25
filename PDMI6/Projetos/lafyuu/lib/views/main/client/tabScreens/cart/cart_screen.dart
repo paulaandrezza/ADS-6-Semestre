@@ -36,7 +36,7 @@ class _CartScreenState extends State<CartScreen> {
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Erro ao carregar produtos: $e')));
+      ).showSnackBar(SnackBar(content: Text('Error loading products: $e')));
     } finally {
       setState(() => isLoading = false);
     }
@@ -52,7 +52,7 @@ class _CartScreenState extends State<CartScreen> {
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Erro ao excluir item: $e')));
+      ).showSnackBar(SnackBar(content: Text('Error deleting item: $e')));
     }
   }
 
@@ -186,7 +186,7 @@ class OrderSummary extends StatelessWidget {
     final summaryLines = buildOrderSummaryLines(
       itemCount: itemCount,
       totalPrice: totalPrice,
-      shippingCost: 40.00,
+      shippingCost: itemCount > 0 ? 40.00 : 0.00,
     );
 
     final content = Padding(

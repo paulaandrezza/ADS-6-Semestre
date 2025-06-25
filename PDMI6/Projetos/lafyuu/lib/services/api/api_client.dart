@@ -46,7 +46,8 @@ class ApiClient {
 
   Future<http.Response> delete(String endpoint) async {
     final url = Uri.parse('$_baseUrl$endpoint');
-    final headers = await _getHeaders();
+    final token = await _tokenStorageService.getToken();
+    final headers = {if (token != null) 'Authorization': 'Bearer $token'};
     return http.delete(url, headers: headers);
   }
 

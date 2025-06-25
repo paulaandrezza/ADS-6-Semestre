@@ -12,11 +12,12 @@ import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/edit/e
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/edit/edit_gender_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/edit/edit_password_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/edit/edit_phone_number_page.dart';
+import 'package:lafyuu/views/main/client/tabScreens/cart/cart_screen.dart';
 import 'package:lafyuu/views/main/client/tabScreens/cart/cart_success_screen.dart';
-import 'package:lafyuu/views/main/client/tabScreens/explore/favorite/favorite_screen.dart';
+import 'package:lafyuu/views/main/client/tabScreens/product/favorite/favorite_screen.dart';
 import 'package:lafyuu/views/main/screens/product_detail/product_detail_screen.dart';
 import 'package:lafyuu/views/main/seller/seller_navigation_page.dart';
-import 'package:lafyuu/views/main/seller/tabScreens/productManager/product_manager_screen.dart';
+import 'package:lafyuu/views/main/client/tabScreens/productManager/product_manager_screen.dart';
 import 'package:lafyuu/views/sign/sign_in_page.dart';
 import 'package:lafyuu/views/sign/sign_up_page.dart';
 import 'package:lafyuu/views/splash/splash_page.dart';

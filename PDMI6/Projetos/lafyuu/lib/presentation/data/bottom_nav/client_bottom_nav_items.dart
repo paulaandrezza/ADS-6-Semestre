@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lafyuu/presentation/models/bottom_nav_item_data.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/account_screen.dart';
 import 'package:lafyuu/views/main/client/tabScreens/cart/cart_screen.dart';
-import 'package:lafyuu/views/main/client/tabScreens/explore/explore_screen.dart';
+import 'package:lafyuu/views/main/client/tabScreens/product/product_screen.dart';
 import 'package:lafyuu/views/main/client/tabScreens/home/home_screen.dart';
 import 'package:lafyuu/views/main/client/tabScreens/offer/offer_screen.dart';
 
@@ -13,9 +13,9 @@ final List<BottomNavItemData> clientBottomNavItems = [
     screen: HomeScreen(),
   ),
   BottomNavItemData(
-    icon: Icons.search_outlined,
-    label: 'Explore',
-    screen: ExploreScreen(),
+    icon: Icons.inventory_2_outlined,
+    label: 'Products',
+    screen: ProductScreen(),
   ),
   BottomNavItemData(
     icon: Icons.shopping_cart_outlined,

@@ -1,5 +1,6 @@
 class ProductCard {
   final String id;
+  final String? productVariantId;
   final String name;
   final double price;
   final double discount;
@@ -10,6 +11,7 @@ class ProductCard {
 
   ProductCard({
     required this.id,
+    this.productVariantId,
     required this.name,
     required this.price,
     required this.discount,
@@ -22,10 +24,11 @@ class ProductCard {
   factory ProductCard.fromJson(Map<String, dynamic> json) {
     return ProductCard(
       id: json['id'],
+      productVariantId: json['productVariantId'],
       name: json['name'],
       rating: 3 as int?,
       price: ((json['price'] ?? 200) as num).toDouble(),
-      discount: ((json['discount'] ?? 0.1) as num).toDouble(),
+      discount: (((json['discount'] ?? 10) / 100) as num).toDouble(),
       imageUrl:
           json['imageUrl'] ??
           'https://m.media-amazon.com/images/I/51206EEfBIL._AC_SY500_.jpg',

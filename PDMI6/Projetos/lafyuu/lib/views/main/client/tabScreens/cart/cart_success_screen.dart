@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 
 class CartSuccessScreen extends StatelessWidget {
   const CartSuccessScreen({super.key});
@@ -50,8 +51,13 @@ class CartSuccessScreen extends StatelessWidget {
                   height: 48,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(
+                      Navigator.pushAndRemoveUntil(
                         context,
+                        MaterialPageRoute(
+                          builder:
+                              (_) => const MainNavigationPage(initialIndex: 2),
+                        ),
+                        (route) => false,
                       ); // ou Navigator.pushNamed(context, '/cart');
                     },
                     style: ElevatedButton.styleFrom(

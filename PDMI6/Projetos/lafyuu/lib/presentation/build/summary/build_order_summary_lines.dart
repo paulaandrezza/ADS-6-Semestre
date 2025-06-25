@@ -20,7 +20,7 @@ List<SummaryLineData> buildOrderSummaryLines({
     ),
     SummaryLineData(
       label: 'Total Price',
-      value: '\$${(totalPrice * 1.2 + 40).toStringAsFixed(2)}',
+      value: '\$${(totalPrice * 1.2 + shippingCost).toStringAsFixed(2)}',
       isHighlighted: true,
     ),
   ];

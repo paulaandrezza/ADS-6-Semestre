@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:lafyuu/models/product/product.dart';
 import 'package:lafyuu/models/product/product_card.dart';
+import 'package:lafyuu/models/product/product_detail.dart';
 import 'package:lafyuu/services/api/api_client.dart';
 
 class ProductService {
@@ -8,7 +9,7 @@ class ProductService {
 
   Future<List<ProductCard>> get() async {
     try {
-      final response = await _apiClient.get('/products?pageSize=1000');
+      final response = await _apiClient.get('/products/?pageSize=1000');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonMap = jsonDecode(response.body);
@@ -26,13 +27,13 @@ class ProductService {
     }
   }
 
-  Future<Product> getById(String id) async {
+  Future<ProductDetail> getById(String id) async {
     try {
       final response = await _apiClient.get('/products/$id');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonMap = jsonDecode(response.body);
-        return Product.fromJson(jsonMap);
+        return ProductDetail.fromJson(jsonMap);
       } else {
         final Map<String, dynamic> errorResponse = jsonDecode(response.body);
         throw Exception('Failed to load product: ${errorResponse['error']}');

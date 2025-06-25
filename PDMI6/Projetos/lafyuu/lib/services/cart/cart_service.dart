@@ -27,13 +27,33 @@ class CartService {
 
   Future checkout() async {
     try {
-      final response = await _apiClient.post('/cart/checkout');
+      final response = await _apiClient.delete('/cart/items/cart');
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 204) {
         return;
       } else {
         final Map<String, dynamic> errorResponse = jsonDecode(response.body);
         throw Exception('Failed to make checkout: ${errorResponse['error']}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future addItemToCart(String productVariantId, int quantity) async {
+    try {
+      final response = await _apiClient.post(
+        '/cart/items/',
+        body: {"productVariantId": productVariantId, 'quantity': quantity},
+      );
+
+      if (response.statusCode == 201) {
+        return;
+      } else {
+        final Map<String, dynamic> errorResponse = jsonDecode(response.body);
+        throw Exception(
+          'Failed to add item to cart: ${errorResponse['error']}',
+        );
       }
     } catch (e) {
       rethrow;

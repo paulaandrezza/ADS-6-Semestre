@@ -39,7 +39,7 @@ class Product {
       description: json['description'],
       rating: 3 as int?,
       price: ((json['price'] ?? 200) as num).toDouble(),
-      discount: ((json['discount'] ?? 0.1) as num).toDouble(),
+      discount: (((json['discount'] ?? 10) / 100) as num).toDouble(),
       imageUrl:
           json['imageUrl'] ??
           'https://m.media-amazon.com/images/I/51206EEfBIL._AC_SY500_.jpg',
@@ -54,6 +54,7 @@ class Product {
 
   Product copyWith({
     int? id,
+    String? productVariantId,
     String? name,
     String? description,
     double? price,
@@ -65,6 +66,7 @@ class Product {
   }) {
     return Product(
       id: this.id,
+      productVariantId: this.productVariantId,
       name: this.name,
       description: this.description,
       price: this.price,
