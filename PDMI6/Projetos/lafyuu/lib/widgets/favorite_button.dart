@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lafyuu/services/product/product_service.dart';
 
 class FavoriteButton extends StatefulWidget {
+  final String productId;
   final bool isFavorite;
+  final VoidCallback? toggleFavorite;
 
-  const FavoriteButton({super.key, required this.isFavorite});
+  const FavoriteButton({
+    super.key,
+    required this.productId,
+    required this.isFavorite,
+    this.toggleFavorite,
+  });
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -11,6 +19,7 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton> {
   late bool isFavorite;
+  final ProductService _productService = ProductService();
 
   @override
   void initState() {
@@ -18,10 +27,18 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     isFavorite = widget.isFavorite;
   }
 
-  void _toggleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
+  Future<void> _toggleFavorite() async {
+    try {
+      _productService.toggleFavoriteStatus(widget.productId, !isFavorite);
+      widget.toggleFavorite?.call();
+      setState(() {
+        isFavorite = !isFavorite;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   @override

@@ -6,7 +6,6 @@ enum AppRoutes {
   sellerMain,
   exploreFavorites,
   productDetails,
-  productManager,
 
   accountProfile,
   accountOrders,
@@ -38,8 +37,6 @@ extension AppRoutesExtension on AppRoutes {
       case AppRoutes.sellerMain:
         return '/sellerMain';
       case AppRoutes.exploreFavorites:
-        return '/explore/favorites';
-      case AppRoutes.productManager:
         return '/productManager';
       case AppRoutes.productDetails:
         return '/product/details';

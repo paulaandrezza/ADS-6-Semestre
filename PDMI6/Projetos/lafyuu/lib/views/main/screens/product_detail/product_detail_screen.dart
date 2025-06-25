@@ -185,7 +185,10 @@ class ProductDetailScreenBody extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(product.name, style: AppTextStyles.h1),
-                    FavoriteButton(isFavorite: product.isFavorite),
+                    FavoriteButton(
+                      isFavorite: product.isFavorite,
+                      productId: product.id,
+                    ),
                   ],
                 ),
                 Row(

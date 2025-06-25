@@ -57,4 +57,19 @@ class AuthManager {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
+
+  Future<User> getCurrentUser() async {
+    try {
+      final token = await _tokenStorageService.getToken();
+      final user = _authService.parseToken(token!);
+
+      if (user == null) {
+        throw Exception('Invalid token received.');
+      }
+
+      return user;
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', ''));
+    }
+  }
 }

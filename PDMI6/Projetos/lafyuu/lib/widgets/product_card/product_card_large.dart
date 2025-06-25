@@ -24,7 +24,7 @@ class ProductCardLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.lightgrey),
         borderRadius: BorderRadius.circular(12),
@@ -72,7 +72,10 @@ class ProductCardLarge extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        FavoriteButton(isFavorite: product.isFavorite),
+                        FavoriteButton(
+                          productId: product.id,
+                          isFavorite: product.isFavorite,
+                        ),
                         if (!isOrderDetail)
                           IconButton(
                             icon: const Icon(Icons.delete_outline),

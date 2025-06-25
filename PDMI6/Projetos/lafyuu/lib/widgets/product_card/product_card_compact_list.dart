@@ -4,12 +4,16 @@ import 'product_card_compact.dart';
 
 class ProductCardCompactList extends StatelessWidget {
   final List<ProductCard> products;
-  final void Function(String) onDelete;
+  final void Function(String)? onDelete;
+  final void Function(String)? toggleFavorite;
+  final bool isClient;
 
   const ProductCardCompactList({
     super.key,
     required this.products,
-    required this.onDelete,
+    this.onDelete,
+    this.toggleFavorite,
+    this.isClient = true,
   });
 
   @override
@@ -22,14 +26,16 @@ class ProductCardCompactList extends StatelessWidget {
         crossAxisCount: isLandscape ? 4 : 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: isLandscape ? 0.60 : 0.55,
+        childAspectRatio: isLandscape ? 0.60 : 0.52,
       ),
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
         return ProductCardCompact(
           product: product,
-          onDelete: () => onDelete(product.id),
+          onDelete: () => onDelete?.call(product.id),
+          toggleFavorite: () => toggleFavorite?.call(product.id),
+          isClient: isClient,
         );
       },
     );

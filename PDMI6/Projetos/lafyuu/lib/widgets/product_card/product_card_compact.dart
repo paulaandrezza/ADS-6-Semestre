@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/models/product/product_card.dart';
 import 'package:lafyuu/routes/app_routes.dart';
+import 'package:lafyuu/services/auth/auth_service.dart';
+import 'package:lafyuu/services/auth_manager.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/theme/app_colors.dart';
+import 'package:lafyuu/widgets/favorite_button.dart';
 
 class ProductCardCompact extends StatelessWidget {
+  final AuthManager _authManager = AuthManager();
   final ProductCard product;
   final VoidCallback? onDelete;
+  final VoidCallback? toggleFavorite;
   final bool isFavorite;
+  final bool isClient;
 
-  const ProductCardCompact({
+  ProductCardCompact({
     super.key,
     required this.product,
     this.onDelete,
+    this.toggleFavorite,
     this.isFavorite = true,
+    this.isClient = true,
   });
 
   @override
@@ -30,7 +38,7 @@ class ProductCardCompact extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Container(
         width: 160,
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.lightgrey),
@@ -96,7 +104,13 @@ class ProductCardCompact extends StatelessWidget {
                   ],
                 ),
 
-                if (isFavorite)
+                if (isClient)
+                  FavoriteButton(
+                    productId: product.id,
+                    isFavorite: product.isFavorite,
+                    toggleFavorite: toggleFavorite,
+                  )
+                else if (!isClient)
                   InkWell(
                     onTap: onDelete,
                     borderRadius: BorderRadius.circular(16),

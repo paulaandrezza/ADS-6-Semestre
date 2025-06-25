@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/products_mock_search.dart';
+import 'package:lafyuu/models/enums/UserRole.dart';
 import 'package:lafyuu/models/product/product_card.dart';
+import 'package:lafyuu/services/auth_manager.dart';
 import 'package:lafyuu/services/product/product_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
@@ -16,15 +18,18 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   final ProductService _productService = ProductService();
+  final AuthManager _authManager = AuthManager();
   List<ProductCard> products = [];
   bool isLoading = true;
   final TextEditingController _searchController = TextEditingController();
   String _searchText = '';
+  bool isClient = true;
 
   @override
   void initState() {
     super.initState();
     _loadProducts();
+    _loadUserRole();
     _searchController.addListener(() {
       setState(() {
         _searchText = _searchController.text.toLowerCase();
@@ -53,6 +58,13 @@ class _ProductScreenState extends State<ProductScreen> {
     });
   }
 
+  Future<void> _loadUserRole() async {
+    final user = await _authManager.getCurrentUser();
+    setState(() {
+      isClient = user?.role == UserRole.client;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<String> filteredProducts =
@@ -71,20 +83,25 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.favorite_outline_outlined, color: AppColors.grey),
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => FavoriteScreen()));
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.add, color: AppColors.grey),
-            onPressed: () {
-              // TODO: implementar ação de adicionar produto
-            },
-          ),
+          if (isClient)
+            IconButton(
+              icon: Icon(
+                Icons.favorite_outline_outlined,
+                color: AppColors.grey,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => FavoriteScreen()),
+                );
+              },
+            )
+          else
+            IconButton(
+              icon: Icon(Icons.add, color: AppColors.grey),
+              onPressed: () {
+                // TODO: implementar ação de adicionar produto
+              },
+            ),
           SizedBox(width: 16),
         ],
       ),
@@ -97,6 +114,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     child: ProductCardCompactList(
                       products: products,
                       onDelete: _removeProduct,
+                      isClient: isClient,
                     ),
                   )
               : ListView.builder(
