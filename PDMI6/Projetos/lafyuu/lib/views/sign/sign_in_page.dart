@@ -20,8 +20,8 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
-  String? _emailError = null;
-  String? _passwordError = null;
+  String? _emailError;
+  String? _passwordError;
 
   void _handleSignIn() async {
     setState(

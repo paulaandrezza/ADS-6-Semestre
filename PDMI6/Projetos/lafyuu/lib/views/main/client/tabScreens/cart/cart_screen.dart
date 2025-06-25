@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/mocks/products_mock.dart';
 import 'package:lafyuu/models/product/product.dart';
 import 'package:lafyuu/presentation/build/summary/build_order_summary_lines.dart';
+import 'package:lafyuu/routes/app_routes.dart';
+import 'package:lafyuu/services/cart/cart_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
@@ -9,14 +10,37 @@ import 'package:lafyuu/widgets/primary_button.dart';
 import 'package:lafyuu/widgets/summary/summary_card.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({super.key});
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<Product> products = List.from(productsMock);
+  final CartService _cartService = CartService();
+  List<Product> products = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCardProducts();
+  }
+
+  Future<void> _loadCardProducts() async {
+    try {
+      final response = await _cartService.get();
+      setState(() {
+        products = response;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao carregar produtos: $e')));
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
 
   void _removeProduct(String id) {
     setState(() {
@@ -31,6 +55,18 @@ class _CartScreenState extends State<CartScreen> {
         products[index] = products[index].copyWith(quantity: newQuantity);
       }
     });
+  }
+
+  Future<void> _checkout() async {
+    try {
+      await _cartService.checkout();
+
+      Navigator.pushNamed(context, AppRoutes.cartSuccessScreen.path);
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   @override
@@ -104,7 +140,7 @@ class _CartScreenState extends State<CartScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            PrimaryButton(label: 'Check Out', onPressed: () {}),
+            PrimaryButton(label: 'Check Out', onPressed: _checkout),
             const SizedBox(height: 16),
           ],
         ),

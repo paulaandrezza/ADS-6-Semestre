@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lafyuu/theme/app_text_styles.dart';
-import '../../routes/app_routes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../theme/app_colors.dart';
+import 'package:lafyuu/routes/app_routes.dart';
+import 'package:lafyuu/theme/app_colors.dart';
 
 class SplashPage extends StatefulWidget {
   @override

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/product/product.dart';
 import 'package:lafyuu/models/product/product_card.dart';
 import 'package:lafyuu/services/product/product_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/widgets/product_card/product_card_compact_list.dart';
-import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
 
 class ProductManagerScreen extends StatefulWidget {
   const ProductManagerScreen({super.key});

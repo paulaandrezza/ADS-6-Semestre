@@ -1,7 +1,7 @@
 class Product {
   final String id;
   final String name;
-  final String description;
+  final String? description;
   final double price;
   final double discount;
   final String imageUrl;
@@ -16,7 +16,7 @@ class Product {
   Product({
     required this.id,
     required this.name,
-    required this.description,
+    this.description,
     required this.price,
     required this.discount,
     required this.imageUrl,
@@ -31,24 +31,21 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
+      id: json['id'] ?? json['productId'],
       name: json['name'],
-      description: json['description'],
-      price: 200.0,
-      discount: 0.1,
-      imageUrl:
-          'https://m.media-amazon.com/images/I/51206EEfBIL._AC_SY500_.jpg',
+      description: json['description'] ?? null,
       rating: 3 as int?,
-      // price: (json['price'] as num).toDouble(),
-      // discount: (json['discount'] as num).toDouble(),
-      // imageUrl: json['imageUrl'],
-      // rating: json['rating'],
+      price: ((json['price'] ?? 200) as num).toDouble(),
+      discount: ((json['discount'] ?? 0.1) as num).toDouble(),
+      imageUrl:
+          json['imageUrl'] ??
+          'https://m.media-amazon.com/images/I/51206EEfBIL._AC_SY500_.jpg',
       quantity: json['quantity'] != null ? json['quantity'] as int : null,
       isFavorite: json['isFavorite'] ?? false,
-      weight: json['weigth'],
-      dimensions: json['dimensions'],
-      model: json['model'],
-      brand: json['brand'],
+      weight: json['weigth'] ?? '',
+      dimensions: json['dimensions'] ?? '',
+      model: json['model'] ?? '',
+      brand: json['brand'] ?? '',
     );
   }
 

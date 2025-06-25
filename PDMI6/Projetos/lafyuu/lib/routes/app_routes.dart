@@ -20,6 +20,8 @@ enum AppRoutes {
   editEmail,
   editPhoneNumber,
   editPassword,
+
+  cartSuccessScreen,
 }
 
 extension AppRoutesExtension on AppRoutes {
@@ -64,6 +66,9 @@ extension AppRoutesExtension on AppRoutes {
         return '/edit/phoneNumber';
       case AppRoutes.editPassword:
         return '/edit/password';
+
+      case AppRoutes.cartSuccessScreen:
+        return '/cart/successScreen';
     }
   }
 }

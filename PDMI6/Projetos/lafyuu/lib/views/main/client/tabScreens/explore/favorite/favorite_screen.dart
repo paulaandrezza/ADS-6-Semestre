@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/favorite_products_mock.dart';
-import 'package:lafyuu/models/favorite_product.dart';
 import 'package:lafyuu/models/product/product_card.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/product_card/product_card_compact_list.dart';

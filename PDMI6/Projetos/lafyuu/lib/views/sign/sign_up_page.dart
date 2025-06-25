@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lafyuu/models/enums/UserRole.dart';
 import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/services/auth_manager.dart';
 import 'package:lafyuu/theme/app_colors.dart';

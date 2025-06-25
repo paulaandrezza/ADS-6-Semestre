@@ -20,10 +20,13 @@ class ApiClient {
     return http.get(url, headers: headers);
   }
 
-  Future<http.Response> post(String endpoint, Map<String, dynamic> body) async {
+  Future<http.Response> post(
+    String endpoint, {
+    Map<String, dynamic>? body,
+  }) async {
     final url = Uri.parse('$_baseUrl$endpoint');
     final headers = await _getHeaders();
-    return http.post(url, headers: headers, body: jsonEncode(body));
+    return http.post(url, headers: headers, body: jsonEncode(body ?? {}));
   }
 
   Future<http.Response> postWithoutAuth(

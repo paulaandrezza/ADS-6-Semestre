@@ -320,7 +320,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                   ],
                 ),
 
-                Text(product.description, style: AppTextStyles.body),
+                Text(product.description!, style: AppTextStyles.body),
 
                 const SizedBox(height: 8),
                 Row(

@@ -23,13 +23,12 @@ class ProductCard {
     return ProductCard(
       id: json['id'],
       name: json['name'],
-      price: 200.0,
-      discount: 0.1,
       rating: 3 as int?,
-      // price: (json['price'] as num).toDouble(),
-      // discount: (json['discount'] as num).toDouble(),
-      imageUrl: json['imageUrl'],
-      // rating: json['rating'],
+      price: ((json['price'] ?? 200) as num).toDouble(),
+      discount: ((json['discount'] ?? 0.1) as num).toDouble(),
+      imageUrl:
+          json['imageUrl'] ??
+          'https://m.media-amazon.com/images/I/51206EEfBIL._AC_SY500_.jpg',
       isFavorite: json['isFavorite'] ?? false,
     );
   }
