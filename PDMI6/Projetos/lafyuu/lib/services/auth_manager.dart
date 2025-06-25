@@ -16,7 +16,7 @@ class AuthManager {
         throw Exception('Invalid token received.');
       }
 
-      await _tokenStorageService.saveToken(token!);
+      await _tokenStorageService.saveToken(token);
 
       return user;
     } catch (e) {

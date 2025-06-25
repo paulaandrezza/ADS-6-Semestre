@@ -42,19 +42,39 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
-  void _removeProduct(String id) {
-    setState(() {
-      products.removeWhere((product) => product.id == id);
-    });
+  Future<void> _removeProduct(String id, String productVariantId) async {
+    try {
+      await _cartService.changeQuantity(productVariantId, 0);
+
+      setState(() {
+        products.removeWhere((product) => product.id == id);
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao excluir item: $e')));
+    }
   }
 
-  void _updateQuantity(String id, int newQuantity) {
-    setState(() {
-      final index = products.indexWhere((product) => product.id == id);
-      if (index != -1) {
-        products[index] = products[index].copyWith(quantity: newQuantity);
-      }
-    });
+  Future<void> _updateQuantity(
+    String id,
+    String productVariantId,
+    int newQuantity,
+  ) async {
+    try {
+      await _cartService.changeQuantity(productVariantId, newQuantity);
+
+      setState(() {
+        final index = products.indexWhere((product) => product.id == id);
+        if (index != -1) {
+          products[index] = products[index].copyWith(quantity: newQuantity);
+        }
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao alterar quantidade: $e')));
+    }
   }
 
   Future<void> _checkout() async {

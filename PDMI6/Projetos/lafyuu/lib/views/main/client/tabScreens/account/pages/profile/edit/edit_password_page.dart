@@ -99,11 +99,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
-        child: PrimaryButton(
-          label: 'Save',
-          onPressed: _save,
-          isLoading: isLoading,
-        ),
+        child: PrimaryButton(label: 'Save', onPressed: _save, isLoading: true),
       ),
     );
   }

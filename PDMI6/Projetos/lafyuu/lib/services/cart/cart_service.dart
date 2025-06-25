@@ -39,4 +39,21 @@ class CartService {
       rethrow;
     }
   }
+
+  Future changeQuantity(String productVariantId, int quantity) async {
+    try {
+      final response = await _apiClient.put('/cart/items/$productVariantId', {
+        'quantity': quantity,
+      });
+
+      if (response.statusCode == 204) {
+        return;
+      } else {
+        final Map<String, dynamic> errorResponse = jsonDecode(response.body);
+        throw Exception('Failed to change quantity: ${errorResponse['error']}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
