@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
 import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
@@ -36,7 +36,7 @@ class ProductCardLarge extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 AppRoutes.productDetails.path,
-                arguments: product,
+                arguments: product.id,
               );
             },
             child: Image.network(

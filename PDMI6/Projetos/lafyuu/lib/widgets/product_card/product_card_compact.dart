@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/favorite_product.dart';
+import 'package:lafyuu/models/product/product_card.dart';
 import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 
 class ProductCardCompact extends StatelessWidget {
-  final FavoriteProduct favoriteProduct;
+  final ProductCard product;
   final VoidCallback? onDelete;
   final bool isFavorite;
 
   const ProductCardCompact({
     super.key,
-    required this.favoriteProduct,
+    required this.product,
     this.onDelete,
     this.isFavorite = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('isFavorite: ${favoriteProduct.isFavorite}');
-
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
           context,
           AppRoutes.productDetails.path,
-          arguments: favoriteProduct,
+          arguments: product.id,
         );
       },
 
@@ -43,7 +41,7 @@ class ProductCardCompact extends StatelessWidget {
           children: [
             Center(
               child: Image.network(
-                favoriteProduct.imageUrl,
+                product.imageUrl,
                 height: 160,
                 fit: BoxFit.contain,
               ),
@@ -52,7 +50,7 @@ class ProductCardCompact extends StatelessWidget {
             SizedBox(
               height: 40,
               child: Text(
-                favoriteProduct.name,
+                product.name,
                 style: AppTextStyles.body5,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -65,7 +63,7 @@ class ProductCardCompact extends StatelessWidget {
                   return Icon(
                     Icons.star,
                     color:
-                        index < favoriteProduct.rating
+                        index < product.rating!
                             ? Colors.amber
                             : AppColors.lightgrey,
                     size: 14,
@@ -74,7 +72,7 @@ class ProductCardCompact extends StatelessWidget {
               ),
             const SizedBox(height: 16),
             Text(
-              '\$${(favoriteProduct.price * (1 - favoriteProduct.discount)).toStringAsFixed(2)}',
+              '\$${(product.price * (1 - product.discount)).toStringAsFixed(2)}',
               style: AppTextStyles.bodyLightBlue,
             ),
             Row(
@@ -83,7 +81,7 @@ class ProductCardCompact extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '\$${favoriteProduct.price.toStringAsFixed(2)}',
+                      '\$${product.price.toStringAsFixed(2)}',
                       style: AppTextStyles.body.copyWith(
                         decoration: TextDecoration.lineThrough,
                         decorationColor: AppColors.grey,
@@ -92,7 +90,7 @@ class ProductCardCompact extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${(favoriteProduct.discount * 100).toInt()}% Off',
+                      '${(product.discount * 100).toInt()}% Off',
                       style: AppTextStyles.body.copyWith(color: Colors.red),
                     ),
                   ],

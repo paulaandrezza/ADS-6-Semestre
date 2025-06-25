@@ -1,5 +1,5 @@
 import 'package:lafyuu/models/order/order_detail.dart';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
 
 final mockOrderDetail = OrderDetail(
   orderId: 'LQNSU346JK',

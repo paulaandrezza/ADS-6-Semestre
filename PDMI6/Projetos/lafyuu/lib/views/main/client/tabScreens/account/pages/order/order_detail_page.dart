@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lafyuu/mocks/order_detail_mock.dart';
 import 'package:lafyuu/mocks/products_mock.dart';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
 import 'package:lafyuu/presentation/build/summary/build_order_summary_lines.dart';
 import 'package:lafyuu/presentation/build/summary/build_shipping_summary_lines.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';

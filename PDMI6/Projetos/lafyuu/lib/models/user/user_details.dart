@@ -1,5 +1,4 @@
 import 'package:lafyuu/models/enums/Gender.dart';
-import 'package:lafyuu/models/enums/UserRole.dart';
 
 class UserDetails {
   final String fullName;

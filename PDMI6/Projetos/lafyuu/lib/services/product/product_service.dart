@@ -1,19 +1,21 @@
 import 'dart:convert';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
+import 'package:lafyuu/models/product/product_card.dart';
 import 'package:lafyuu/services/api/api_client.dart';
 
 class ProductService {
   final ApiClient _apiClient = ApiClient();
 
-  Future<List<Product>> get() async {
+  Future<List<ProductCard>> get() async {
     try {
-      final response = await _apiClient.get('/products');
+      final response = await _apiClient.get('/products?pageSize=1000');
 
       if (response.statusCode == 200) {
-        final List<dynamic> jsonList = jsonDecode(response.body);
+        final Map<String, dynamic> jsonMap = jsonDecode(response.body);
+        final List<dynamic> jsonList = jsonMap['products'];
 
         return jsonList
-            .map((json) => Product.fromJson(json as Map<String, dynamic>))
+            .map((json) => ProductCard.fromJson(json as Map<String, dynamic>))
             .toList();
       } else {
         final Map<String, dynamic> errorResponse = jsonDecode(response.body);

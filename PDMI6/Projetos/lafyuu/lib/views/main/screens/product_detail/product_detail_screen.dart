@@ -1,20 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
+import 'package:lafyuu/services/product/product_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
 import 'package:lafyuu/widgets/favorite_button.dart';
 import 'package:lafyuu/widgets/favorite_product_card/favorite_product_carousel.dart';
 import 'package:lafyuu/widgets/primary_button.dart';
 
-class ProductDetailScreen extends StatelessWidget {
-  final Product product;
+class ProductDetailScreen extends StatefulWidget {
+  final String productId;
 
-  const ProductDetailScreen({super.key, required this.product});
+  const ProductDetailScreen({super.key, required this.productId});
+
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  Product? product;
+  bool isLoading = true;
+  String? errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProduct();
+  }
+
+  Future<void> _loadProduct() async {
+    try {
+      final fetchedProduct = await ProductService().getById(widget.productId);
+      setState(() {
+        product = fetchedProduct;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (errorMessage != null) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: Center(child: Text(errorMessage!)),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.name, style: AppTextStyles.h2),
+        title: Text(product!.name, style: AppTextStyles.h2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
           onPressed: () {
@@ -37,7 +83,7 @@ class ProductDetailScreen extends StatelessWidget {
           SizedBox(width: 16),
         ],
       ),
-      body: ProductDetailScreenBody(product: product),
+      body: ProductDetailScreenBody(product: product!),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -112,7 +158,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                     return Icon(
                       Icons.star,
                       color:
-                          index < product.rating
+                          index < product.rating!
                               ? Colors.amber
                               : AppColors.lightgrey,
                       size: 20,
@@ -121,8 +167,26 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                 ),
 
                 Text(
-                  '\$${product.price.toStringAsFixed(2)}',
+                  '\$${(product.price * (1 - product.discount)).toStringAsFixed(2)}',
                   style: AppTextStyles.bodyLightBlue2,
+                ),
+
+                Row(
+                  children: [
+                    Text(
+                      '\$${product.price.toStringAsFixed(2)}',
+                      style: AppTextStyles.body.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        decorationColor: AppColors.grey,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${(product.discount * 100).toInt()}% Off',
+                      style: AppTextStyles.body.copyWith(color: Colors.red),
+                    ),
+                  ],
                 ),
 
                 Text('Select Size', style: AppTextStyles.body2),
@@ -189,21 +253,52 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
 
                 Text('Specification', style: AppTextStyles.body2),
 
+                if (product.weight != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [Text('Weight:', style: AppTextStyles.body4)],
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(product.weight!, style: AppTextStyles.body),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                if (product.dimensions != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text('Dimensions:', style: AppTextStyles.body4),
+                        ],
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(product.dimensions!, style: AppTextStyles.body),
+                        ],
+                      ),
+                    ],
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      children: [Text('Shown:', style: AppTextStyles.body4)],
+                      children: [Text('Brand:', style: AppTextStyles.body4)],
                     ),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Lases', style: AppTextStyles.body),
-                        Text(
-                          'Blue/Anthracite/Watermelon/White',
-                          style: AppTextStyles.body,
-                        ),
+                        Text(product.brand!, style: AppTextStyles.body),
                       ],
                     ),
                   ],
@@ -213,20 +308,19 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      children: [Text('Style:', style: AppTextStyles.body4)],
+                      children: [Text('Model:', style: AppTextStyles.body4)],
                     ),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [Text('CD0113-400', style: AppTextStyles.body)],
+                      children: [
+                        Text(product.model!, style: AppTextStyles.body),
+                      ],
                     ),
                   ],
                 ),
 
-                Text(
-                  'The Nike Air Max 270 React ENG combines a full-length React foam midsole with a 270 Max Air unit for unrivaled comfort and a striking visual experience.',
-                  style: AppTextStyles.body,
-                ),
+                Text(product.description, style: AppTextStyles.body),
 
                 const SizedBox(height: 8),
                 Row(
@@ -249,7 +343,7 @@ class _ProductDetailScreenBodyState extends State<ProductDetailScreenBody> {
                         return Icon(
                           Icons.star,
                           color:
-                              index < product.rating
+                              index < product.rating!
                                   ? Colors.amber
                                   : AppColors.lightgrey,
                           size: 20,

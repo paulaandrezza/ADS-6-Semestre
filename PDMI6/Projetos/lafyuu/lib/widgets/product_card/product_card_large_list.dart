@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
 import 'product_card_large.dart';
 
 class ProductCardLargeList extends StatelessWidget {

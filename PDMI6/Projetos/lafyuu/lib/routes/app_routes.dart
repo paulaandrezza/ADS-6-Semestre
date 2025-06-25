@@ -7,11 +7,19 @@ enum AppRoutes {
   exploreFavorites,
   productDetails,
   productManager,
+
   accountProfile,
   accountOrders,
   accountOrderDetails,
   accountAddress,
   accountPayment,
+
+  editFullName,
+  editGender,
+  editBirthDate,
+  editEmail,
+  editPhoneNumber,
+  editPassword,
 }
 
 extension AppRoutesExtension on AppRoutes {
@@ -29,10 +37,10 @@ extension AppRoutesExtension on AppRoutes {
         return '/sellerMain';
       case AppRoutes.exploreFavorites:
         return '/explore/favorites';
-      case AppRoutes.productDetails:
-        return '/productDetails';
       case AppRoutes.productManager:
         return '/productManager';
+      case AppRoutes.productDetails:
+        return '/product/details';
       case AppRoutes.accountProfile:
         return '/account/profile';
       case AppRoutes.accountOrders:
@@ -43,6 +51,19 @@ extension AppRoutesExtension on AppRoutes {
         return '/account/address';
       case AppRoutes.accountPayment:
         return '/account/payment';
+
+      case AppRoutes.editFullName:
+        return '/edit/fullName';
+      case AppRoutes.editGender:
+        return '/edit/gender';
+      case AppRoutes.editBirthDate:
+        return '/edit/birthDate';
+      case AppRoutes.editEmail:
+        return '/edit/email';
+      case AppRoutes.editPhoneNumber:
+        return '/edit/phoneNumber';
+      case AppRoutes.editPassword:
+        return '/edit/password';
     }
   }
 }

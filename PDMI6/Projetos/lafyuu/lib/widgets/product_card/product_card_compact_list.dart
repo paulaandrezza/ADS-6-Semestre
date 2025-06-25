@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/models/favorite_product.dart';
-import '../product_card/product_card_compact.dart';
+import 'package:lafyuu/models/product/product_card.dart';
+import 'product_card_compact.dart';
 
-class FavoriteProductCardList extends StatelessWidget {
-  final List<FavoriteProduct> favoriteProducts;
+class ProductCardCompactList extends StatelessWidget {
+  final List<ProductCard> products;
   final void Function(String) onDelete;
 
-  const FavoriteProductCardList({
+  const ProductCardCompactList({
     super.key,
-    required this.favoriteProducts,
+    required this.products,
     required this.onDelete,
   });
 
@@ -24,12 +24,12 @@ class FavoriteProductCardList extends StatelessWidget {
         mainAxisSpacing: 10,
         childAspectRatio: isLandscape ? 0.60 : 0.55,
       ),
-      itemCount: favoriteProducts.length,
+      itemCount: products.length,
       itemBuilder: (context, index) {
-        final favoriteProduct = favoriteProducts[index];
+        final product = products[index];
         return ProductCardCompact(
-          favoriteProduct: favoriteProduct,
-          onDelete: () => onDelete(favoriteProduct.id),
+          product: product,
+          onDelete: () => onDelete(product.id),
         );
       },
     );

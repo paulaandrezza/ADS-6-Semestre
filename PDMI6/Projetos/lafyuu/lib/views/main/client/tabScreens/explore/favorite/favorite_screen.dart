@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/favorite_products_mock.dart';
 import 'package:lafyuu/models/favorite_product.dart';
+import 'package:lafyuu/models/product/product_card.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
-import 'package:lafyuu/widgets/favorite_product_card/favorite_product_card_list.dart';
+import 'package:lafyuu/widgets/product_card/product_card_compact_list.dart';
 
 class FavoriteScreen extends StatefulWidget {
   FavoriteScreen({super.key});
@@ -12,11 +13,11 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<FavoriteProduct> favoriteProducts = List.from(favoriteProductsMock);
+  List<ProductCard> products = List.from(favoriteProductsMock);
 
   void _removeProduct(String id) {
     setState(() {
-      favoriteProducts.removeWhere((product) => product.id == id);
+      products.removeWhere((product) => product.id == id);
     });
   }
 
@@ -34,8 +35,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: FavoriteProductCardList(
-          favoriteProducts: favoriteProducts,
+        child: ProductCardCompactList(
+          products: products,
           onDelete: _removeProduct,
         ),
       ),

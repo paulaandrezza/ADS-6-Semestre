@@ -6,37 +6,38 @@ List<ProfileInfoItemData> buildProfileInfoItems({
   required String birthDate,
   required String email,
   required String phoneNumber,
+  required Map<String, VoidCallback> onTapActions,
 }) {
   return [
     ProfileInfoItemData(
       icon: Icons.transgender_outlined,
       label: 'Gender',
       value: gender,
-      onTap: () {},
+      onTap: onTapActions['gender'] ?? () {},
     ),
     ProfileInfoItemData(
       icon: Icons.calendar_month_outlined,
       label: 'Birthday',
       value: birthDate,
-      onTap: () {},
+      onTap: onTapActions['birthDate'] ?? () {},
     ),
     ProfileInfoItemData(
       icon: Icons.email_outlined,
       label: 'Email',
       value: email,
-      onTap: () {},
+      onTap: onTapActions['email'] ?? () {},
     ),
     ProfileInfoItemData(
       icon: Icons.phone_android,
       label: 'Phone Number',
       value: phoneNumber,
-      onTap: () {},
+      onTap: onTapActions['phoneNumber'] ?? () {},
     ),
     ProfileInfoItemData(
       icon: Icons.lock,
       label: 'Change Password',
       value: '**********',
-      onTap: () {},
+      onTap: onTapActions['password'] ?? () {},
     ),
   ];
 }

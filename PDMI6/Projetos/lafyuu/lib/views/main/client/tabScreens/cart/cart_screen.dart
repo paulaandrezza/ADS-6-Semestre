@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/mocks/products_mock.dart';
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
 import 'package:lafyuu/presentation/build/summary/build_order_summary_lines.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';

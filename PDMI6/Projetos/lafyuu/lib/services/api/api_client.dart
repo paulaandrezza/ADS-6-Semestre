@@ -46,4 +46,13 @@ class ApiClient {
     final headers = await _getHeaders();
     return http.delete(url, headers: headers);
   }
+
+  Future<http.Response> patch(
+    String endpoint, {
+    required Map<String, dynamic> body,
+  }) async {
+    final url = Uri.parse('$_baseUrl$endpoint');
+    final headers = await _getHeaders();
+    return http.patch(url, headers: headers, body: jsonEncode(body));
+  }
 }

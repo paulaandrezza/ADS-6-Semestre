@@ -1,4 +1,4 @@
-import 'package:lafyuu/models/product.dart';
+import 'package:lafyuu/models/product/product.dart';
 
 import 'order.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lafyuu/mocks/favorite_products_mock.dart';
-import 'package:lafyuu/models/favorite_product.dart';
+import 'package:lafyuu/models/product/product.dart';
+import 'package:lafyuu/models/product/product_card.dart';
+import 'package:lafyuu/services/product/product_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
-import 'package:lafyuu/theme/app_text_styles.dart';
-import 'package:lafyuu/widgets/favorite_product_card/favorite_product_card_list.dart';
-import 'package:lafyuu/widgets/under_construction.dart';
+import 'package:lafyuu/widgets/product_card/product_card_compact_list.dart';
+import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
 
 class ProductManagerScreen extends StatefulWidget {
   const ProductManagerScreen({super.key});
@@ -14,13 +14,35 @@ class ProductManagerScreen extends StatefulWidget {
 }
 
 class _ProductManagerScreenState extends State<ProductManagerScreen> {
-  List<FavoriteProduct> favoriteProducts = List.from(favoriteProductsMock);
+  final ProductService _productService = ProductService();
   final TextEditingController _searchController = TextEditingController();
+  List<ProductCard> products = [];
+  bool isLoading = true;
 
-  // TODO: remover metodo removeProduct quando back estiver conectado, deixar direto no card do produtos
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    try {
+      final response = await _productService.get();
+      setState(() {
+        products = response;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao carregar produtos: $e')));
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
   void _removeProduct(String id) {
     setState(() {
-      favoriteProducts.removeWhere((product) => product.id == id);
+      products.removeWhere((product) => product.id == id);
     });
   }
 
@@ -40,19 +62,22 @@ class _ProductManagerScreenState extends State<ProductManagerScreen> {
           IconButton(
             icon: Icon(Icons.add, color: AppColors.grey),
             onPressed: () {
-              // TODO: implementar notificação
+              // TODO: implementar ação de adicionar produto
             },
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: FavoriteProductCardList(
-          favoriteProducts: favoriteProducts,
-          onDelete: _removeProduct,
-        ),
-      ),
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ProductCardCompactList(
+                  products: products,
+                  onDelete: _removeProduct,
+                ),
+              ),
     );
   }
 }
