@@ -6,6 +6,7 @@ import 'package:lafyuu/presentation/build/account/build_on_tap_actions.dart';
 import 'package:lafyuu/presentation/build/account/build_profile_info_items.dart';
 import 'package:lafyuu/services/account/account_service.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/edit/edit_email_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/profile_info_item.dart';
 
 class AccountProfilePage extends StatefulWidget {
@@ -27,6 +28,7 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
   }
 
   Future<void> _loadUserDetails() async {
+    setState(() => isLoading = true);
     try {
       final user = await AccountService().get();
       setState(() {
@@ -38,6 +40,17 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
         errorMessage = e.toString();
         isLoading = false;
       });
+    }
+  }
+
+  Future<void> _navigateAndRefresh(Widget page) async {
+    final shouldRefresh = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => page),
+    );
+
+    if (shouldRefresh == true) {
+      _loadUserDetails();
     }
   }
 

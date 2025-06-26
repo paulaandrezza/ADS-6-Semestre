@@ -46,7 +46,7 @@ class _EditBirthDatePageState extends State<EditBirthDatePage> {
         'birthDate',
         DateFormat('yyyy-MM-dd').format(selectedDate),
       );
-      if (mounted) Navigator.pop(context);
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(
         context,

@@ -37,7 +37,7 @@ class _EditPhoneNumberPageState extends State<EditPhoneNumberPage> {
 
     try {
       await AccountService().patchField('phoneNumber', _controller.text.trim());
-      if (mounted) Navigator.pop(context);
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(
         context,

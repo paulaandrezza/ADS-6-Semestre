@@ -37,7 +37,7 @@ class _EditFullNamePageState extends State<EditFullNamePage> {
 
     try {
       await AccountService().patchField('fullName', _controller.text.trim());
-      if (mounted) Navigator.pop(context);
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(
         context,

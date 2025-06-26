@@ -28,7 +28,7 @@ class AccountService {
       final body = {field: value};
       final response = await _apiClient.patch('/users/account', body: body);
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 204) {
         final Map<String, dynamic> error = jsonDecode(response.body);
         throw Exception('Failed to update $field: ${error['error']}');
       }

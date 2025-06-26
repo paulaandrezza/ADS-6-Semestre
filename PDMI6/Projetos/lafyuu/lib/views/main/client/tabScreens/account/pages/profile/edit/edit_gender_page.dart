@@ -28,7 +28,7 @@ class _EditGenderPageState extends State<EditGenderPage> {
 
     try {
       await AccountService().patchField('gender', selectedGender!);
-      if (mounted) Navigator.pop(context);
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(
         context,

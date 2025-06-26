@@ -37,7 +37,7 @@ class _EditEmailPageState extends State<EditEmailPage> {
 
     try {
       await AccountService().patchField('email', _controller.text.trim());
-      if (mounted) Navigator.pop(context);
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
