@@ -5,6 +5,7 @@ import 'package:lafyuu/routes/app_routes.dart';
 import 'package:lafyuu/services/cart/cart_service.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/utils/notification_helper.dart';
 import 'package:lafyuu/widgets/product_card/product_card_large_list.dart';
 import 'package:lafyuu/widgets/primary_button.dart';
 import 'package:lafyuu/widgets/summary/summary_card.dart';

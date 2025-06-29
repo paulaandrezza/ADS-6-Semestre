@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lafyuu/theme/app_colors.dart';
 import 'package:lafyuu/theme/app_text_styles.dart';
+import 'package:lafyuu/utils/notification_helper.dart';
 import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 
 class CartSuccessScreen extends StatelessWidget {
@@ -8,6 +9,10 @@ class CartSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await showOrderNotification();
+    });
+
     return Scaffold(
       body: SafeArea(
         child: Center(

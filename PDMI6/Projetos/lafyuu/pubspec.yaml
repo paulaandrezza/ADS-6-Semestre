@@ -17,6 +17,7 @@ dependencies:
   flutter_image_gallery_saver: ^0.0.2
   image_picker: ^1.1.0
   path_provider: ^2.0.15
+  flutter_local_notifications: ^19.3.0
 
 dev_dependencies:
   flutter_test:
