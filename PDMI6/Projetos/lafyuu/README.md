@@ -6,7 +6,7 @@
 
 ## 🎬 Demonstração
 
-<video src="./assets/app.webm" controls width="100%" style="border-radius: 8px;"></video>
+[📽️ Clique aqui para ver o vídeo demonstrativo](https://drive.google.com/file/d/1Kg3d95sFoZiTpBRksrMmJUEg9QJKMVIh/view?usp=sharing)
 
 ---
 
