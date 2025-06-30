@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:lafyuu/routes/app_router.dart';
 import 'routes/app_routes.dart';
 import 'theme/app_theme.dart';
@@ -11,6 +11,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
 
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -20,6 +21,16 @@ void main() async {
   );
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  await Geolocator.isLocationServiceEnabled();
+  var permisssion = await Geolocator.checkPermission();
+
+  if (permisssion == LocationPermission.denied) {
+    permisssion = await Geolocator.requestPermission();
+    if (permisssion == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
 
   runApp(const MainApp());
 }

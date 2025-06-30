@@ -1,8 +1,20 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+fun getEnvVar(key: String): String? {
+    val envFile = rootProject.file(".env")
+    if (envFile.exists()) {
+        val props = Properties()
+        envFile.inputStream().use { props.load(it) }
+        return props.getProperty(key)
+    }
+    return System.getenv(key)
 }
 
 android {
@@ -29,6 +41,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders.put("GOOGLE_MAPS_API_KEY", getEnvVar("GOOGLE_MAPS_API_KEY") ?: "")
     }
 
     buildTypes {

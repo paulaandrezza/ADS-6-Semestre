@@ -12,6 +12,7 @@ enum AppRoutes {
   accountOrderDetails,
   accountAddress,
   accountPayment,
+  AccountGelocation,
 
   editFullName,
   editGender,
@@ -50,6 +51,8 @@ extension AppRoutesExtension on AppRoutes {
         return '/account/address';
       case AppRoutes.accountPayment:
         return '/account/payment';
+      case AppRoutes.AccountGelocation:
+        return '/account/geolocation';
 
       case AppRoutes.editFullName:
         return '/edit/fullName';

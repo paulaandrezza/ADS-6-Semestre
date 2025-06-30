@@ -3,6 +3,7 @@ import 'package:lafyuu/models/enums/Gender.dart';
 import 'package:lafyuu/views/main/client/main_navigation_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_address_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/account_payment_page.dart';
+import 'package:lafyuu/views/main/client/tabScreens/account/pages/geolocation/account_geolocation_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/order/account_order_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/order/order_detail_page.dart';
 import 'package:lafyuu/views/main/client/tabScreens/account/pages/profile/account_profile_page.dart';
@@ -53,6 +54,8 @@ Route<dynamic> generateAppRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => AccountAddressPage());
     case '/account/payment':
       return MaterialPageRoute(builder: (_) => AccountPaymentPage());
+    case '/account/geolocation':
+      return MaterialPageRoute(builder: (_) => AccountGeolocationPage());
 
     case '/edit/fullName':
       final fullName = settings.arguments as String;

@@ -25,6 +25,11 @@ final List<MenuItemData> accountMenuItems = [
     route: AppRoutes.accountPayment,
   ),
   MenuItemData(
+    icon: Icons.location_on_rounded,
+    title: 'Geolocation',
+    route: AppRoutes.AccountGelocation,
+  ),
+  MenuItemData(
     icon: Icons.logout,
     title: 'Logout',
     isDestructive: true,
